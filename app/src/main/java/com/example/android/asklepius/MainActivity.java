@@ -1,5 +1,6 @@
 package com.example.android.asklepius;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,12 +19,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+	private static final int LOGIN_ACTIVITY_RESULT_CODE = 262;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		startActivity(new Intent(this, LoginActivity.class));
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivityForResult(intent, LOGIN_ACTIVITY_RESULT_CODE);
 
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
@@ -32,5 +37,16 @@ public class MainActivity extends AppCompatActivity {
 				Toast.makeText(MainActivity.this, "Hello, world!", Toast.LENGTH_SHORT).show();
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (requestCode == LOGIN_ACTIVITY_RESULT_CODE) {
+			if (resultCode == RESULT_CANCELED) {
+				finish();
+			}
+		}
 	}
 }

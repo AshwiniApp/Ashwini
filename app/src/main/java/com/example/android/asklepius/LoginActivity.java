@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -19,7 +20,8 @@ public class LoginActivity extends AppCompatActivity {
 
 	private static final String TAG = "LoginActivity";
 	// Choose authentication providers
-	List<AuthUI.IdpConfig> providers = Collections.singletonList(
+	List<AuthUI.IdpConfig> providers = Arrays.asList(
+			new AuthUI.IdpConfig.TwitterBuilder().build(),  // FIXME API issues
 			new AuthUI.IdpConfig.GoogleBuilder().build());
 
 	private static final int RC_SIGN_IN = 605;
@@ -28,11 +30,13 @@ public class LoginActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+		getSupportActionBar().hide();
 
 		startActivityForResult(
 				AuthUI.getInstance()
 						.createSignInIntentBuilder()
 						.setAvailableProviders(providers)
+						.setLogo(R.drawable.logo)
 						.build(),
 				RC_SIGN_IN);
 	}
@@ -43,15 +47,17 @@ public class LoginActivity extends AppCompatActivity {
 
 		if (requestCode == RC_SIGN_IN) {
 			IdpResponse response = IdpResponse.fromResultIntent(data);
-
 			if (resultCode == RESULT_OK) {
-				// Successfully signed in
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				finish();
+				setResult(RESULT_OK);
 				Log.d(TAG, "onActivityResult: Sign In Successful!");
+				Toast.makeText(this, "Sign In Successful!", Toast.LENGTH_SHORT).show();
 			} else {
-				Log.d(TAG, "onActivityResult: Sign In Failed");
+				setResult(RESULT_CANCELED);
+				Log.d(TAG, "onActivityResult: Sign In Failed!");
+				Toast.makeText(this, "Sign In Failed!", Toast.LENGTH_SHORT).show();
 			}
+
+			finish();
 		}
 	}
 }
