@@ -21,8 +21,8 @@ public class LoginActivity extends AppCompatActivity {
 	private static final String TAG = "LoginActivity";
 	// Choose authentication providers
 	List<AuthUI.IdpConfig> providers = Arrays.asList(
-			new AuthUI.IdpConfig.TwitterBuilder().build(),  // FIXME API issues
-			new AuthUI.IdpConfig.GoogleBuilder().build());
+			new AuthUI.IdpConfig.GoogleBuilder().build(),
+			new AuthUI.IdpConfig.TwitterBuilder().build());
 
 	private static final int RC_SIGN_IN = 605;
 	
@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_login);
 		getSupportActionBar().hide();
 
+		// Initiates the FirebaseUI for auth
 		startActivityForResult(
 				AuthUI.getInstance()
 						.createSignInIntentBuilder()
@@ -48,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 		if (requestCode == RC_SIGN_IN) {
 			IdpResponse response = IdpResponse.fromResultIntent(data);
 			if (resultCode == RESULT_OK) {
-				setResult(RESULT_OK);
+				setResult(resultCode);
 				Log.d(TAG, "onActivityResult: Sign In Successful!");
 				Toast.makeText(this, "Sign In Successful!", Toast.LENGTH_SHORT).show();
 			} else {
