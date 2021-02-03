@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 	// Choose authentication providers
 	List<AuthUI.IdpConfig> providers = Arrays.asList(
 			new AuthUI.IdpConfig.GoogleBuilder().build(),
+			new AuthUI.IdpConfig.FacebookBuilder().build(),
 			new AuthUI.IdpConfig.TwitterBuilder().build());
 
 	private static final int RC_SIGN_IN = 605;
