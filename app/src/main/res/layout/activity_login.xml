@@ -8,10 +8,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="319dp"
-        android:layout_height="606dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="64dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         android:contentDescription="@string/app_name"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -25,14 +24,15 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="192dp"
+        android:layout_marginBottom="150dp"
         android:text="@string/app_name"
+        android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textStyle="bold"
+        android:fontFamily="@font/josefin_sans"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:fontFamily="@font/josefin_sans"
         tools:letterSpacing="0.4"
         tools:textAllCaps="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>
