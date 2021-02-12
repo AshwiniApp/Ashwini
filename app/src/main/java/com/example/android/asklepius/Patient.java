@@ -6,10 +6,10 @@ public class Patient {
 	public String name;
 	public char sex;
 	public int age;
-	public Map<String, Boolean> symptomList;
-	public boolean comorbidities;
-	public String symptomsSeverity;
-	public String condition;
+	public Map<String, Boolean> symptomList; // CheckBox
+	public boolean comorbidities; // Yes/No
+	public String symptomsSeverity; // Very mild/Mild/Average/Severe/Very Severe
+	public String condition; // Very mild/Mild/Average/Severe/Very Severe
 	public String treatmentPlan; // TODO optional document upload, successive period upload, if possible
 	public String periodOfTreatment;
 	public String methodOfTreatmentAdministration;

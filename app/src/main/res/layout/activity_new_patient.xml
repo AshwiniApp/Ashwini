@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewPatient">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="* means required"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#C81414" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/patient_name_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Patient's Name*"
+            android:padding="8dp"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Patient's Sex:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Other:" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Specify"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:singleLine="true" />
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/patient_age_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Patient's Age*"
+            android:padding="8dp"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Symptoms Shown:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/checkBox_fever"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fever" />
+
+            <CheckBox
+                android:id="@+id/checkBox_fatigue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fatigue" />
+
+            <CheckBox
+                android:id="@+id/checkBox_dry_cough"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dry Cough" />
+
+            <CheckBox
+                android:id="@+id/checkBox_aches_and_pains"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aches and Pains" />
+
+            <CheckBox
+                android:id="@+id/checkBox_sore_throat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sore Throat" />
+
+            <CheckBox
+                android:id="@+id/checkBox_nasal_congestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nasal Congestion" />
+
+            <CheckBox
+                android:id="@+id/checkBox_runny_nose"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Runny Nose" />
+
+            <CheckBox
+                android:id="@+id/checkBox_diarrhoea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Diarrhoea" />
+
+            <CheckBox
+                android:id="@+id/checkBox_anosmia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Anosmia" />
+
+            <CheckBox
+                android:id="@+id/checkBox_rash"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rash" />
+
+            <CheckBox
+                android:id="@+id/checkBox_conjunctivitis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Conjunctivitis" />
+
+            <CheckBox
+                android:id="@+id/checkBox_headache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Headache" />
+
+            <CheckBox
+                android:id="@+id/checkBox_asymptomatic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Asymptomatic" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Comorbidties:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No" />
+
+                <RadioButton
+                    android:id="@+id/radioButton13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editText_comorbidties"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Comorbidity Description"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Severity of Symptoms:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+        
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0.0"
+            android:valueTo="80.0"
+            android:stepSize="20.0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Condition of the Patient:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <com.google.android.material.slider.Slider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stepSize="20.0"
+            android:valueFrom="0.00"
+            android:valueTo="80.0" />
+    </LinearLayout>
+
+</ScrollView>
