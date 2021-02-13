@@ -15,15 +15,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="* means required"
+            android:text="@string/means_required"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#C81414" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/patient_name_text_field"
+            android:id="@+id/textField_patient_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Patient's Name*"
+            android:hint="@string/patient_s_name"
             android:padding="8dp"
             app:hintEnabled="true">
 
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Patient's Sex:"
+            android:text="@string/patient_s_sex"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
 
@@ -53,43 +53,44 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/radioButton_sex_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Male" />
+                    android:text="@string/male" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/radioButton_sex_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Female" />
+                    android:text="@string/female" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/radioButton_sex_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Other:" />
+                    android:text="@string/other" />
             </RadioGroup>
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="wrap_content"
+                android:id="@+id/editText_patient_sex_other"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="48dp"
+                android:layout_marginEnd="32dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Specify"
+                android:hint="@string/specify"
                 android:inputType="textPersonName"
                 android:selectAllOnFocus="true"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:autofillHints="trans"/>
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/patient_age_text_field"
+            android:id="@+id/textField_patient_age"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Patient's Age*"
+            android:hint="@string/patient_s_age"
             android:padding="8dp"
             app:hintEnabled="true">
 
@@ -102,100 +103,101 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Symptoms Shown:"
+            android:layout_margin="8dp"
+            android:text="@string/symptoms_shown"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:orientation="vertical">
 
             <CheckBox
                 android:id="@+id/checkBox_fever"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fever" />
+                android:text="@string/symptom_fever" />
 
             <CheckBox
                 android:id="@+id/checkBox_fatigue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Fatigue" />
+                android:text="@string/symptom_fatigue" />
 
             <CheckBox
                 android:id="@+id/checkBox_dry_cough"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Dry Cough" />
+                android:text="@string/symptom_dry_cough" />
 
             <CheckBox
                 android:id="@+id/checkBox_aches_and_pains"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Aches and Pains" />
+                android:text="@string/symptom_aches_and_pains" />
 
             <CheckBox
                 android:id="@+id/checkBox_sore_throat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sore Throat" />
+                android:text="@string/symptom_sore_throat" />
 
             <CheckBox
                 android:id="@+id/checkBox_nasal_congestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nasal Congestion" />
+                android:text="@string/symptom_nasal_congestion" />
 
             <CheckBox
                 android:id="@+id/checkBox_runny_nose"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Runny Nose" />
+                android:text="@string/symptom_runny_nose" />
 
             <CheckBox
                 android:id="@+id/checkBox_diarrhoea"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Diarrhoea" />
+                android:text="@string/symptom_diarrhoea" />
 
             <CheckBox
                 android:id="@+id/checkBox_anosmia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Anosmia" />
+                android:text="@string/symptom_anosmia" />
 
             <CheckBox
                 android:id="@+id/checkBox_rash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rash" />
+                android:text="@string/symptom_rash" />
 
             <CheckBox
                 android:id="@+id/checkBox_conjunctivitis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Conjunctivitis" />
+                android:text="@string/symptom_conjunctivitis" />
 
             <CheckBox
                 android:id="@+id/checkBox_headache"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Headache" />
+                android:text="@string/symptom_headache" />
 
             <CheckBox
                 android:id="@+id/checkBox_asymptomatic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Asymptomatic" />
+                android:text="@string/symptom_asymptomatic" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Comorbidties:"
+            android:text="@string/comorbidties"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
 
@@ -210,39 +212,40 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButton12"
+                    android:id="@+id/radioButton_comorbidity_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No" />
+                    android:text="@string/no" />
 
                 <RadioButton
-                    android:id="@+id/radioButton13"
+                    android:id="@+id/radioButton_comorbidity_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Yes" />
+                    android:text="@string/yes" />
             </RadioGroup>
 
             <EditText
                 android:id="@+id/editText_comorbidties"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="Comorbidity Description"
-                android:inputType="textPersonName" />
+                android:hint="@string/comorbidity_description"
+                android:inputType="textPersonName"
+                android:autofillHints="Heart Disease" />
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Severity of Symptoms:"
+            android:text="@string/severity_of_symptoms"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
         
         <com.google.android.material.slider.Slider
-            android:id="@+id/slider"
+            android:id="@+id/slider_symptom_severity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:valueFrom="0.0"
@@ -253,11 +256,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Condition of the Patient:"
+            android:text="@string/condition_of_the_patient"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
 
         <com.google.android.material.slider.Slider
+            android:id="@+id/slider_patient_condition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stepSize="20.0"
