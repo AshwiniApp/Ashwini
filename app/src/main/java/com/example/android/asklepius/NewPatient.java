@@ -15,7 +15,6 @@ public class NewPatient extends AppCompatActivity {
 
 	private static final String TAG = "NewPatient";
 	EditText otherSexInput;
-	boolean isSexOther = false;
 	Patient patient;
 
 	@Override
@@ -52,13 +51,15 @@ public class NewPatient extends AppCompatActivity {
 		switch(view.getId()) {
 			case R.id.radioButton_sex_male:
 				patient.setSex(getString(R.string.male));
+				otherSexInput.setEnabled(false);
 				break;
 			case R.id.radioButton_sex_female:
 				patient.setSex(getString(R.string.female));
+				otherSexInput.setEnabled(false);
 				break;
 			case R.id.radioButton_sex_other:
-				isSexOther = true;
 				otherSexInput.setEnabled(true);
+				otherSexInput.requestFocus();
 		}
 	}
 }
