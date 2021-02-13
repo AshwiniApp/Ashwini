@@ -56,19 +56,22 @@
                     android:id="@+id/radioButton_sex_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/male" />
+                    android:text="@string/male"
+                    android:onClick="onSexSelectRadioButtonClicked"/>
 
                 <RadioButton
                     android:id="@+id/radioButton_sex_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/female" />
+                    android:text="@string/female"
+                    android:onClick="onSexSelectRadioButtonClicked"/>
 
                 <RadioButton
                     android:id="@+id/radioButton_sex_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/other" />
+                    android:text="@string/other"
+                    android:onClick="onSexSelectRadioButtonClicked"/>
             </RadioGroup>
 
             <EditText
@@ -80,10 +83,10 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/specify"
-                android:inputType="textPersonName"
                 android:selectAllOnFocus="true"
+                android:enabled="false"
                 android:singleLine="true"
-                android:autofillHints="trans"/>
+                android:autofillHints="trans" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
