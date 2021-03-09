@@ -1,5 +1,6 @@
 package com.example.android.asklepius;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Patient {
@@ -7,7 +8,7 @@ public class Patient {
 	public String sex;
 	public int age;
 	public Map<String, Boolean> symptomList; // CheckBox
-	public boolean comorbidities; // Yes/No
+	public String comorbidities; // Yes/No
 	public String symptomsSeverity; // Very mild/Mild/Average/Severe/Very Severe
 	public String condition; // Very mild/Mild/Average/Severe/Very Severe
 	public String treatmentPlan; // TODO optional document upload, successive period upload, if possible
@@ -19,6 +20,28 @@ public class Patient {
 	public String sideEffects;
 	public String sourceOfInfection; // Optional
 	public String patientInfectivity; // Optional
+
+	// Default constructor to initialize some fields of the patient data
+	// We'll go with Java defaults for the fields that are not initialized here
+	Patient() {
+		symptomList = new HashMap<String, Boolean>(13);
+		symptomList.put("Fever", false);
+		symptomList.put("Fatigue", false);
+		symptomList.put("Dry Cough", false);
+		symptomList.put("Aches and Pains", false);
+		symptomList.put("Sore Throat", false);
+		symptomList.put("Nasal Congestion", false);
+		symptomList.put("Runny Nose", false);
+		symptomList.put("Diarrhoea", false);
+		symptomList.put("Anosmia", false);
+		symptomList.put("Rash", false);
+		symptomList.put("Conjunctivitis", false);
+		symptomList.put("Headache", false);
+		symptomList.put("Asymptomatic", false);
+
+		symptomsSeverity = "Very Mild";
+		condition = "Very Mild";
+	}
 
 
 	public String getName() {
@@ -37,7 +60,7 @@ public class Patient {
 		return symptomList;
 	}
 
-	public boolean isComorbidities() {
+	public String getComorbidities() {
 		return comorbidities;
 	}
 
@@ -101,7 +124,7 @@ public class Patient {
 		this.symptomList = symptomList;
 	}
 
-	public void setComorbidities(boolean comorbidities) {
+	public void setComorbidities(String comorbidities) {
 		this.comorbidities = comorbidities;
 	}
 
@@ -147,5 +170,27 @@ public class Patient {
 
 	public void setPatientInfectivity(String patientInfectivity) {
 		this.patientInfectivity = patientInfectivity;
+	}
+
+	@Override
+	public String toString() {
+		return "Patient{" +
+				"name='" + name + '\'' +
+				", sex='" + sex + '\'' +
+				", age=" + age +
+				", symptomList=" + symptomList +
+				", comorbidities='" + comorbidities + '\'' +
+				", symptomsSeverity='" + symptomsSeverity + '\'' +
+				", condition='" + condition + '\'' +
+				", treatmentPlan='" + treatmentPlan + '\'' +
+				", periodOfTreatment='" + periodOfTreatment + '\'' +
+				", methodOfTreatmentAdministration='" + methodOfTreatmentAdministration + '\'' +
+				", frequencyOfAdministrationPerDay=" + frequencyOfAdministrationPerDay +
+				", frequencyOfAdministrationPerWeek=" + frequencyOfAdministrationPerWeek +
+				", result='" + result + '\'' +
+				", sideEffects='" + sideEffects + '\'' +
+				", sourceOfInfection='" + sourceOfInfection + '\'' +
+				", patientInfectivity='" + patientInfectivity + '\'' +
+				'}';
 	}
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,15 +27,18 @@
             android:layout_height="match_parent"
             android:hint="@string/patient_s_name"
             android:padding="8dp"
+            app:errorEnabled="true"
             app:hintEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/patient_s_name"
                 android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/textView_patient_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -42,9 +47,10 @@
             android:textStyle="bold" />
 
         <LinearLayout
+            android:id="@+id/layout_sex_selection"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
 
             <RadioGroup
@@ -56,22 +62,22 @@
                     android:id="@+id/radioButton_sex_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/male"
-                    android:onClick="onSexSelectRadioButtonClicked"/>
+                    android:onClick="onSexSelectRadioButtonClicked"
+                    android:text="@string/male" />
 
                 <RadioButton
                     android:id="@+id/radioButton_sex_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/female"
-                    android:onClick="onSexSelectRadioButtonClicked"/>
+                    android:onClick="onSexSelectRadioButtonClicked"
+                    android:text="@string/female" />
 
                 <RadioButton
                     android:id="@+id/radioButton_sex_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/other"
-                    android:onClick="onSexSelectRadioButtonClicked"/>
+                    android:onClick="onSexSelectRadioButtonClicked"
+                    android:text="@string/other" />
             </RadioGroup>
 
             <EditText
@@ -81,12 +87,13 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="32dp"
                 android:layout_weight="1"
+                android:autofillHints="trans"
                 android:ems="10"
-                android:hint="@string/specify"
-                android:selectAllOnFocus="true"
                 android:enabled="false"
-                android:singleLine="true"
-                android:autofillHints="trans" />
+                android:hint="@string/specify"
+                android:inputType="textShortMessage"
+                android:selectAllOnFocus="true"
+                android:singleLine="true" />
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -95,15 +102,18 @@
             android:layout_height="match_parent"
             android:hint="@string/patient_s_age"
             android:padding="8dp"
+            app:errorEnabled="true"
             app:hintEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="@string/patient_s_age"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/textView_patient_symptoms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -197,6 +207,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/textView_comorbidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -218,13 +229,15 @@
                     android:id="@+id/radioButton_comorbidity_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/no" />
+                    android:text="@string/no"
+                    android:onClick="onComorbiditySelectRadioButtonClicked"/>
 
                 <RadioButton
                     android:id="@+id/radioButton_comorbidity_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/yes" />
+                    android:text="@string/yes"
+                    android:onClick="onComorbiditySelectRadioButtonClicked"/>
             </RadioGroup>
 
             <EditText
@@ -233,10 +246,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
+                android:autofillHints="Heart Disease"
                 android:ems="10"
                 android:hint="@string/comorbidity_description"
-                android:inputType="textPersonName"
-                android:autofillHints="Heart Disease" />
+                android:inputType="textShortMessage" />
         </LinearLayout>
 
         <TextView
@@ -246,14 +259,14 @@
             android:text="@string/severity_of_symptoms"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
-        
+
         <com.google.android.material.slider.Slider
             android:id="@+id/slider_symptom_severity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:stepSize="20.0"
             android:valueFrom="0.0"
-            android:valueTo="80.0"
-            android:stepSize="20.0"/>
+            android:valueTo="80.0" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -270,6 +283,164 @@
             android:stepSize="20.0"
             android:valueFrom="0.00"
             android:valueTo="80.0" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_treatment_plan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/treatment_plan_followed_by_the_doctor"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/treatment_plan_followed_by_the_doctor"
+                android:inputType="textMultiLine"
+                android:minLines="5" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_period_of_treatment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/period_of_treatment"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/period_of_treatment"
+                android:inputType="textShortMessage" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_method_of_treatment_administration"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/method_of_administration_of_treatment"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/method_of_administration_of_treatment"
+                android:inputType="textLongMessage" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_frequency_of_administration_per_day"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/frequency_of_administration_per_day"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/frequency_of_administration_per_day"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_frequency_of_administration_per_week"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/frequency_of_administration_per_week"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/frequency_of_administration_per_week"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/result"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/result"
+                android:inputType="textMultiLine"
+                android:minLines="3"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_side_effects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/side_effects"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/side_effects"
+                android:inputType="textMultiLine"
+                android:minLines="3"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_source_of_infection"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/source_of_infection"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/source_of_infection"
+                android:inputType="textShortMessage" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_patient_infectivity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/patient_infectivity"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/patient_infectivity"
+                android:inputType="textShortMessage" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/button_submit_new_patient_data"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/submit"
+            android:textStyle="bold"
+            android:onClick="onSubmitButtonClicked"/>
+
     </LinearLayout>
 
 </ScrollView>
