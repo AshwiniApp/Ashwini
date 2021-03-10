@@ -1,8 +1,5 @@
 package com.example.android.asklepius;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,9 +8,16 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.google.android.material.slider.LabelFormatter;
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class NewPatient extends AppCompatActivity {
 
@@ -22,6 +26,7 @@ public class NewPatient extends AppCompatActivity {
 	boolean isComorbiditySelected = false;
 	ScrollView sv;
 	Patient patient;
+	private DatabaseReference databaseReference;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,10 @@ public class NewPatient extends AppCompatActivity {
 		setContentView(R.layout.activity_new_patient);
 		getSupportActionBar().setTitle("Add New Patient");
 		sv = findViewById(R.id.scrollView);
+		databaseReference = FirebaseDatabase.getInstance().getReference().child("patients");
 
 		patient = new Patient();
+		patient.setInitial();
 		setSliderTags();
 	}
 
@@ -73,14 +80,14 @@ public class NewPatient extends AppCompatActivity {
 			} else {
 				return "";
 			}
-			return patient.getSymptomsSeverity();
+			return patient.getCondition();
 		});
 	}
 
 	public void onSexSelectRadioButtonClicked(View view) {
 		EditText otherSexInput = findViewById(R.id.editText_patient_sex_other);
 		isSexSelected = true;
-		switch(view.getId()) {
+		switch (view.getId()) {
 			case R.id.radioButton_sex_male:
 				patient.setSex(getString(R.string.male));
 				otherSexInput.setEnabled(false);
@@ -90,12 +97,10 @@ public class NewPatient extends AppCompatActivity {
 				otherSexInput.setEnabled(false);
 				break;
 			case R.id.radioButton_sex_other:
-				// TODO set other sex string
 				otherSexInput.setEnabled(true);
 				otherSexInput.requestFocus();
 		}
 	}
-
 
 
 	public boolean symptomListCheckboxes() {
@@ -199,12 +204,18 @@ public class NewPatient extends AppCompatActivity {
 		}
 
 		// If doctor didn't specify the sex, or selected other but didn't input the other sex
-		EditText otherSexInput = findViewById(R.id.editText_patient_sex_other);
-		if (isSexSelected == false || (otherSexInput.isEnabled() && otherSexInput.getText().toString().trim().isEmpty())) {
-			Toast.makeText(this, "Please specify Patient's Sex", Toast.LENGTH_SHORT).show();
-			View targetView = findViewById(R.id.textView_patient_sex);
-			sv.smoothScrollTo(0, (int) targetView.getY());
+		EditText otherSexInputEditText = findViewById(R.id.editText_patient_sex_other);
+		if (isSexSelected == false) {
+			errorScrollToView("Please specify patient's sex", R.id.textView_patient_sex);
+		} else if (otherSexInputEditText.isEnabled()) {
+			String otherSexInput = otherSexInputEditText.getText().toString();
+			if (otherSexInput.trim().isEmpty()) {
+				errorScrollToView("Please type in the patient's sex", R.id.textView_patient_sex);
+			} else {
+				patient.setSex(otherSexInput);
+			}
 		}
+
 
 		// Set Patient Age or raise error if empty
 		TextInputLayout patientAgeTextField = findViewById(R.id.textField_patient_age);
@@ -224,10 +235,15 @@ public class NewPatient extends AppCompatActivity {
 
 		// Check for null values in comorbidity
 		EditText comorbidityDescription = findViewById(R.id.editText_comorbidties);
-		if (isComorbiditySelected == false || (comorbidityDescription.isEnabled() && comorbidityDescription.getText().toString().trim().isEmpty())) {
-			Toast.makeText(this, "Please specify Patient's Comorbidity", Toast.LENGTH_SHORT).show();
-			View targetView = findViewById(R.id.textView_comorbidity);
-			sv.smoothScrollTo(0, (int) targetView.getY());
+		if (isComorbiditySelected == false) {
+			errorScrollToView("Please specify whether the patient had any comorbidities", R.id.textView_comorbidity);
+		} else if (comorbidityDescription.isEnabled()) {
+			String description = comorbidityDescription.getText().toString();
+			if (description.trim().isEmpty()) {
+				errorScrollToView("Please specify Patient's comorbidity", R.id.textView_comorbidity);
+			} else {
+				patient.setComorbidities(description);
+			}
 		}
 
 		// Sliders are defaulted, and set in another method through event listeners
@@ -297,7 +313,21 @@ public class NewPatient extends AppCompatActivity {
 	public void uploadData() {
 		Log.d(TAG, "uploadData: " + patient);
 
-		// TODO upload data to firebase
+		databaseReference.push().setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
+			@Override
+			public void onSuccess(Void aVoid) {
+				Log.d(TAG, "uploadData onSuccess: Data successfully uploaded to firebase");
+				Toast.makeText(NewPatient.this, "Patient Data Successfully Added", Toast.LENGTH_SHORT).show();
+			}
+		})
+				.addOnFailureListener(new OnFailureListener() {
+					@Override
+					public void onFailure(@NonNull Exception e) {
+						Log.d(TAG, "uploadData onFailure: Data Upload Failed!");
+						Toast.makeText(NewPatient.this, "Patient Data Addition Failed! Please check your network!", Toast.LENGTH_SHORT).show();
+					}
+				});
+		finish();
 	}
 
 	public void onComorbiditySelectRadioButtonClicked(View view) {
@@ -309,11 +339,15 @@ public class NewPatient extends AppCompatActivity {
 				comorbidityDescription.setEnabled(false);
 				break;
 			case R.id.radioButton_comorbidity_yes:
-				// TODO set comorbidites string
-				patient.setComorbidities("Yes");
 				comorbidityDescription.setEnabled(true);
 				comorbidityDescription.requestFocus();
 				break;
 		}
+	}
+
+	private void errorScrollToView(String errorString, @IdRes int viewId) {
+		Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
+		View targetView = findViewById(viewId);
+		sv.smoothScrollTo(0, (int) targetView.getY());
 	}
 }

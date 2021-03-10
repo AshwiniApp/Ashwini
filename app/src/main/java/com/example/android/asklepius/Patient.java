@@ -1,8 +1,11 @@
 package com.example.android.asklepius;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@IgnoreExtraProperties
 public class Patient {
 	public String name;
 	public String sex;
@@ -21,9 +24,13 @@ public class Patient {
 	public String sourceOfInfection; // Optional
 	public String patientInfectivity; // Optional
 
+	Patient() {
+
+	}
+
 	// Default constructor to initialize some fields of the patient data
 	// We'll go with Java defaults for the fields that are not initialized here
-	Patient() {
+	public void setInitial() {
 		symptomList = new HashMap<String, Boolean>(13);
 		symptomList.put("Fever", false);
 		symptomList.put("Fatigue", false);
