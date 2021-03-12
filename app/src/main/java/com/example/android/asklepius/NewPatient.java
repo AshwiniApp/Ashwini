@@ -1,5 +1,8 @@
 package com.example.android.asklepius;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -287,6 +290,12 @@ public class NewPatient extends AppCompatActivity {
 	public void uploadData() {
 		Log.d(TAG, "uploadData: " + patient);
 
+		if (isOnline() == false) {
+			Toast.makeText(this, "Please check your internet connection!", Toast.LENGTH_SHORT).show();
+			progressBar.setVisibility(View.INVISIBLE);
+			return;
+		}
+
 		databaseReference.push().setValue(patient).addOnSuccessListener(aVoid -> {
 			Log.d(TAG, "uploadData onSuccess: Data successfully uploaded to firebase");
 			Toast.makeText(NewPatient.this, "Patient Data Successfully Added", Toast.LENGTH_SHORT).show();
@@ -375,5 +384,13 @@ public class NewPatient extends AppCompatActivity {
 		}
 	}
 
-
+	/**
+	 * @return true if internet connection is available
+	 */
+	private boolean isOnline() {
+		ConnectivityManager cm =
+				(ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		return netInfo != null && netInfo.isConnected();
+	}
 }
