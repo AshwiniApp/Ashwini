@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -24,6 +25,8 @@ public class NewPatient extends AppCompatActivity {
 	private static final String TAG = "NewPatient";
 	boolean isSexSelected = false;
 	boolean isComorbiditySelected = false;
+	boolean hasError;
+	ProgressBar progressBar;
 	ScrollView sv;
 	Patient patient;
 	private DatabaseReference databaseReference;
@@ -34,6 +37,8 @@ public class NewPatient extends AppCompatActivity {
 		setContentView(R.layout.activity_new_patient);
 		getSupportActionBar().setTitle("Add New Patient");
 		sv = findViewById(R.id.scrollView);
+		progressBar = findViewById(R.id.progressBar);
+		progressBar.setVisibility(View.INVISIBLE);
 		databaseReference = FirebaseDatabase.getInstance().getReference().child("patients");
 
 		patient = new Patient();
@@ -41,9 +46,13 @@ public class NewPatient extends AppCompatActivity {
 		setSliderTags();
 	}
 
+	/**
+	 * Sets slider labels for patient's symptom severity and condition, along with providing
+	 * callback listeners for setting the value upon selection.
+	 */
 	public void setSliderTags() {
-		Slider symptomSlider = findViewById(R.id.slider_symptom_severity);
-		symptomSlider.setLabelFormatter(value -> {
+		Slider symptomSeveritySlider = findViewById(R.id.slider_symptom_severity);
+		symptomSeveritySlider.setLabelFormatter(value -> {
 
 			Log.d(TAG, "setSliderTags: " + value);
 
@@ -84,6 +93,11 @@ public class NewPatient extends AppCompatActivity {
 		});
 	}
 
+	/**
+	 * Invoked when the user selects the patient's sex. Sets the patient sex if either Male
+	 * or Female is chosen, or waits for setting in onSubmitButtonClicked() in case of
+	 * specification of sex.
+	 */
 	public void onSexSelectRadioButtonClicked(View view) {
 		EditText otherSexInput = findViewById(R.id.editText_patient_sex_other);
 		isSexSelected = true;
@@ -102,8 +116,12 @@ public class NewPatient extends AppCompatActivity {
 		}
 	}
 
-
-	public boolean symptomListCheckboxes() {
+	/**
+	 * Helper method for onSubmitButtonClicked()
+	 * Checks and sets symptoms list upon submission. Couldn't figure out a better way to do this.
+	 * @return whether at least one checkbox has been checked
+	 */
+	private boolean symptomListCheckboxes() {
 		boolean checked = false;
 		CheckBox checkBox = findViewById(R.id.checkBox_fever);
 		if (checkBox.isChecked()) {
@@ -193,143 +211,102 @@ public class NewPatient extends AppCompatActivity {
 
 	}
 
+	/**
+	 * This method is invoked when the submit button at the bottom of the form is pressed.
+	 * After being called, the method checks for any faults in the input, for example a mandatory
+	 * field like comorbidities being missing. It also checks for complicated scenarios like if
+	 * sex is selected as other, the other sex input field is filled or not.
+	 *
+	 * Note: The checking order is reversed to have the most recent checks being made near the end,
+	 * with a bottom to top checking flow followed.
+	 */
 	public void onSubmitButtonClicked(View view) {
-		// Set patient name or raise error if empty
-		TextInputLayout patientNameTextField = findViewById(R.id.textField_patient_name);
-		String patientName = patientNameTextField.getEditText().getText().toString();
-		if (patientName.trim().isEmpty()) {
-			patientNameTextField.setError("Please Input Patient's Name!");
-		} else {
-			patient.setName(patientName);
-		}
+		hasError = false;
 
-		// If doctor didn't specify the sex, or selected other but didn't input the other sex
-		EditText otherSexInputEditText = findViewById(R.id.editText_patient_sex_other);
-		if (isSexSelected == false) {
-			errorScrollToView("Please specify patient's sex", R.id.textView_patient_sex);
-		} else if (otherSexInputEditText.isEnabled()) {
-			String otherSexInput = otherSexInputEditText.getText().toString();
-			if (otherSexInput.trim().isEmpty()) {
-				errorScrollToView("Please type in the patient's sex", R.id.textView_patient_sex);
-			} else {
-				patient.setSex(otherSexInput);
-			}
-		}
+		patient.setPatientInfectivity(((TextInputLayout) findViewById(R.id.textField_patient_infectivity)).getEditText().getText().toString());
+		patient.setSourceOfInfection(((TextInputLayout) findViewById(R.id.textField_source_of_infection)).getEditText().getText().toString());
 
+		checkTextInputField(R.id.textField_side_effects, "effects", "Please specify any side effects that the patient had from the treatment!");
+		checkTextInputField(R.id.textField_result, "result", "Please specify the results obtained on treatment administration!");
+		checkTextInputField(R.id.textField_frequency_of_administration_per_week, "week", "Please specify the frequency of the treatment administration per week!");
+		checkTextInputField(R.id.textField_frequency_of_administration_per_day, "day", "Please specify the frequency of the treatment administered per day!");
+		checkTextInputField(R.id.textField_method_of_treatment_administration, "administration", "Please specify the method of treatment administration!");
+		checkTextInputField(R.id.textField_period_of_treatment, "period", "Please specify the period of treatment!");
+		checkTextInputField(R.id.textField_treatment_plan, "plan", "Please specify the treatment plan!");
 
-		// Set Patient Age or raise error if empty
-		TextInputLayout patientAgeTextField = findViewById(R.id.textField_patient_age);
-		String patientAge = patientAgeTextField.getEditText().getText().toString();
-		if (patientAge.trim().isEmpty()) {
-			patientAgeTextField.setError("Please Input Patient's Age!");
-		} else {
-			patient.setAge(Integer.parseInt(patientAge));
-		}
-
-		// Checks if minimum one of the checkboxes in the symptom list has been selected
-		if (symptomListCheckboxes() == false) {
-			Toast.makeText(this, "Please specify Patient's Symptoms", Toast.LENGTH_SHORT).show();
-			View targetView = findViewById(R.id.textView_patient_symptoms);
-			sv.smoothScrollTo(0, (int) targetView.getY());
-		}
-
-		// Check for null values in comorbidity
+		// Checks for empty response in comorbidity specification
+		// The code section was small enough to not require a refactor
 		EditText comorbidityDescription = findViewById(R.id.editText_comorbidties);
 		if (isComorbiditySelected == false) {
-			errorScrollToView("Please specify whether the patient had any comorbidities", R.id.textView_comorbidity);
+			errorScrollToView("Please specify whether the patient had any comorbidities!", R.id.textView_comorbidity);
 		} else if (comorbidityDescription.isEnabled()) {
 			String description = comorbidityDescription.getText().toString();
 			if (description.trim().isEmpty()) {
-				errorScrollToView("Please specify Patient's comorbidity", R.id.textView_comorbidity);
+				errorScrollToView("Please detail the patient's comorbidity!", R.id.textView_comorbidity);
 			} else {
 				patient.setComorbidities(description);
 			}
 		}
 
-		// Sliders are defaulted, and set in another method through event listeners
-
-		TextInputLayout treatmentPlanTextField = findViewById(R.id.textField_treatment_plan);
-		String treatmentPlan = treatmentPlanTextField.getEditText().getText().toString();
-		if (treatmentPlan.isEmpty()) {
-			treatmentPlanTextField.setError("Please specify the treatment plan");
-		} else {
-			patient.setTreatmentPlan(treatmentPlan);
+		// Checks if minimum one of the checkboxes in the symptom list has been selected
+		if (symptomListCheckboxes() == false) {
+			errorScrollToView("Please specify at least one symptom!", R.id.textView_patient_symptoms);
 		}
 
-		TextInputLayout treatmentPeriodTextField = findViewById(R.id.textField_period_of_treatment);
-		String treatmentPeriod = treatmentPeriodTextField.getEditText().getText().toString();
-		if (treatmentPeriod.isEmpty()) {
-			treatmentPeriodTextField.setError("Please specify the treatment period");
-		} else {
-			patient.setPeriodOfTreatment(treatmentPeriod);
+		checkTextInputField(R.id.textField_patient_age, "age", "Please specify the patient's age!");
+
+		// Checks for empty response in sex specification
+		// The code section was small enough to not require a refactor
+		EditText otherSexInputEditText = findViewById(R.id.editText_patient_sex_other);
+		if (isSexSelected == false) {
+			errorScrollToView("Please specify patient's sex!", R.id.textView_patient_sex);
+			hasError = true;
+		} else if (otherSexInputEditText.isEnabled()) {
+			String otherSexInput = otherSexInputEditText.getText().toString();
+			if (otherSexInput.trim().isEmpty()) {
+				hasError = true;
+				errorScrollToView("Please type in the patient's sex!", R.id.textView_patient_sex);
+			} else {
+				patient.setSex(otherSexInput);
+			}
 		}
 
-		TextInputLayout treatmentAdministrationMethodTextField = findViewById(R.id.textField_method_of_treatment_administration);
-		String treatmentAdministrationMethod = treatmentAdministrationMethodTextField.getEditText().getText().toString();
-		if (treatmentAdministrationMethod.isEmpty()) {
-			treatmentAdministrationMethodTextField.setError("Please specify the treatment period");
-		} else {
-			patient.setMethodOfTreatmentAdministration(treatmentAdministrationMethod);
+		checkTextInputField(R.id.textField_patient_name, "name", "Please specify the patient's name!");
+
+		if (hasError == false) {
+			progressBar.setVisibility(View.VISIBLE);
+			uploadData();
 		}
-
-		TextInputLayout frequencyPerDayTextField = findViewById(R.id.textField_frequency_of_administration_per_day);
-		String frequencyAdministrationPerDay = frequencyPerDayTextField.getEditText().getText().toString();
-		if (frequencyAdministrationPerDay.isEmpty()) {
-			frequencyPerDayTextField.setError("Please specify the treatment period");
-		} else {
-			patient.setFrequencyOfAdministrationPerDay(Integer.parseInt(frequencyAdministrationPerDay));
-		}
-
-		TextInputLayout frequencyPerWeekTextField = findViewById(R.id.textField_frequency_of_administration_per_week);
-		String frequencyPerWeek = frequencyPerWeekTextField.getEditText().getText().toString();
-		if (frequencyPerWeek.isEmpty()) {
-			frequencyPerWeekTextField.setError("Please specify the treatment period");
-		} else {
-			patient.setFrequencyOfAdministrationPerWeek(Integer.parseInt(frequencyPerWeek));
-		}
-
-		TextInputLayout resultTextField = findViewById(R.id.textField_result);
-		String result = resultTextField.getEditText().getText().toString();
-		if (result.isEmpty()) {
-			resultTextField.setError("Please specify the treatment period");
-		} else {
-			patient.setResult(result);
-		}
-
-		TextInputLayout sideEffectsTextField = findViewById(R.id.textField_side_effects);
-		String sideEffects = sideEffectsTextField.getEditText().getText().toString();
-		if (sideEffects.isEmpty()) {
-			sideEffectsTextField.setError("Please specify the treatment period");
-		} else {
-			patient.setSideEffects(sideEffects);
-		}
-
-		patient.setSourceOfInfection(((TextInputLayout) findViewById(R.id.textField_source_of_infection)).getEditText().getText().toString());
-		patient.setPatientInfectivity(((TextInputLayout) findViewById(R.id.textField_patient_infectivity)).getEditText().getText().toString());
-
-		uploadData();
 	}
 
+	/**
+	 * Called when there are no erroneous inputs in the form. Uploads data to the firebase RTDB with
+	 * a unique push ID auto-generated from the server time. Callback listeners notify users whether
+	 * data has been successfully uploaded or not.
+	 */
 	public void uploadData() {
 		Log.d(TAG, "uploadData: " + patient);
 
-		databaseReference.push().setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
-			@Override
-			public void onSuccess(Void aVoid) {
-				Log.d(TAG, "uploadData onSuccess: Data successfully uploaded to firebase");
-				Toast.makeText(NewPatient.this, "Patient Data Successfully Added", Toast.LENGTH_SHORT).show();
-			}
+		databaseReference.push().setValue(patient).addOnSuccessListener(aVoid -> {
+			Log.d(TAG, "uploadData onSuccess: Data successfully uploaded to firebase");
+			Toast.makeText(NewPatient.this, "Patient Data Successfully Added", Toast.LENGTH_SHORT).show();
+			progressBar.setVisibility(View.INVISIBLE);
+			finish();
 		})
 				.addOnFailureListener(new OnFailureListener() {
 					@Override
 					public void onFailure(@NonNull Exception e) {
 						Log.d(TAG, "uploadData onFailure: Data Upload Failed!");
 						Toast.makeText(NewPatient.this, "Patient Data Addition Failed! Please check your network!", Toast.LENGTH_SHORT).show();
+						progressBar.setVisibility(View.INVISIBLE);
+						finish();
 					}
 				});
-		finish();
 	}
 
+	/**
+	 * Invoked when the user selects a comorbidity state.
+	 */
 	public void onComorbiditySelectRadioButtonClicked(View view) {
 		isComorbiditySelected = true;
 		EditText comorbidityDescription = findViewById(R.id.editText_comorbidties);
@@ -345,9 +322,58 @@ public class NewPatient extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Helper method for onSubmitButtonClicked()
+	 * In the case of an non-text based input field like a radiobutton or checkbox, scrolls to the
+	 * header text view.
+	 * @param errorString the error to be shown to the user
+	 * @param viewId the header text view resource ID
+	 */
 	private void errorScrollToView(String errorString, @IdRes int viewId) {
+		hasError = true;
 		Toast.makeText(this, errorString, Toast.LENGTH_SHORT).show();
 		View targetView = findViewById(viewId);
 		sv.smoothScrollTo(0, (int) targetView.getY());
 	}
+
+	/**
+	 * Helper method for onSubmitButtonClicked()
+	 * In the case of a text input field being empty, it displays an error on the associated view.
+	 * Otherwise, it sets the corresponding member in the patient object
+	 * @param textFieldId Resource ID of the text field that is to be checked
+	 * @param parameter specifies which data member of the patient object is to be set
+	 * @param error to be shown to the user in case of empty input
+	 */
+	private void checkTextInputField(@IdRes int textFieldId, String parameter, String error) {
+		TextInputLayout textInputLayout = findViewById(textFieldId);
+		String text = textInputLayout.getEditText().getText().toString();
+
+		if (text.trim().isEmpty()) {
+			textInputLayout.setError(error);
+			hasError = true;
+		} else {
+			switch (parameter) {
+				case "name": patient.setName(text);
+				break;
+				case "age": patient.setAge(Integer.parseInt(text));
+				break;
+				case "plan": patient.setTreatmentPlan(text);
+				break;
+				case "period": patient.setPeriodOfTreatment(text);
+				break;
+				case "administration": patient.setMethodOfTreatmentAdministration(text);
+				break;
+				case "day": patient.setFrequencyOfAdministrationPerDay(Integer.parseInt(text));
+				break;
+				case "week": patient.setFrequencyOfAdministrationPerWeek(Integer.parseInt(text));
+				break;
+				case "result": patient.setResult(text);
+				break;
+				case "effects": patient.setSideEffects(text);
+				break;
+			}
+		}
+	}
+
+
 }

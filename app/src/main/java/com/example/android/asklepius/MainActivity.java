@@ -22,12 +22,7 @@ public class MainActivity extends AppCompatActivity {
 		startActivityForResult(intent, LOGIN_ACTIVITY_REQUEST_CODE);
 
 		FloatingActionButton fab = findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				startActivity(new Intent(getApplicationContext(), NewPatient.class));
-			}
-		});
+		fab.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), NewPatient.class)));
 	}
 
 	/**

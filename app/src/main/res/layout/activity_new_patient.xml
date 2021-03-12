@@ -441,6 +441,13 @@
             android:textStyle="bold"
             android:onClick="onSubmitButtonClicked"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical|center"
+            android:gravity="center" />
+
     </LinearLayout>
 
 </ScrollView>
