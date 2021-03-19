@@ -12,8 +12,8 @@ public class Patient {
 	public int age;
 	public Map<String, Boolean> symptomList; // CheckBox
 	public String comorbidities; // Yes/No
-	public String symptomsSeverity; // Very mild/Mild/Average/Severe/Very Severe
-	public String condition; // Very mild/Mild/Average/Severe/Very Severe
+	public String symptomsSeverity; // Very mild/Mild/Moderate/Severe/Very Severe
+	public String condition; // Very mild/Mild/Moderate/Severe/Very Severe
 	public String treatmentPlan; // TODO optional document upload, successive period upload, if possible
 	public String periodOfTreatment;
 	public String methodOfTreatmentAdministration;
@@ -23,9 +23,18 @@ public class Patient {
 	public String sideEffects;
 	public String sourceOfInfection; // Optional
 	public String patientInfectivity; // Optional
+	public String doctorID;
 
 	Patient() {
 
+	}
+
+	public String getDoctorID() {
+		return doctorID;
+	}
+
+	public void setDoctorID(String doctorID) {
+		this.doctorID = doctorID;
 	}
 
 	// Default constructor to initialize some fields of the patient data
@@ -55,124 +64,124 @@ public class Patient {
 		return name;
 	}
 
-	public String getSex() {
-		return sex;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public Map<String, Boolean> getSymptomList() {
-		return symptomList;
-	}
-
-	public String getComorbidities() {
-		return comorbidities;
-	}
-
-	public String getSymptomsSeverity() {
-		return symptomsSeverity;
-	}
-
-	public String getCondition() {
-		return condition;
-	}
-
-	public String getTreatmentPlan() {
-		return treatmentPlan;
-	}
-
-	public String getPeriodOfTreatment() {
-		return periodOfTreatment;
-	}
-
-	public String getMethodOfTreatmentAdministration() {
-		return methodOfTreatmentAdministration;
-	}
-
-	public int getFrequencyOfAdministrationPerDay() {
-		return frequencyOfAdministrationPerDay;
-	}
-
-	public int getFrequencyOfAdministrationPerWeek() {
-		return frequencyOfAdministrationPerWeek;
-	}
-
-	public String getResult() {
-		return result;
-	}
-
-	public String getSideEffects() {
-		return sideEffects;
-	}
-
-	public String getSourceOfInfection() {
-		return sourceOfInfection;
-	}
-
-	public String getPatientInfectivity() {
-		return patientInfectivity;
-	}
-
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getSex() {
+		return sex;
 	}
 
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
+	public int getAge() {
+		return age;
+	}
+
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public Map<String, Boolean> getSymptomList() {
+		return symptomList;
 	}
 
 	public void setSymptomList(Map<String, Boolean> symptomList) {
 		this.symptomList = symptomList;
 	}
 
+	public String getComorbidities() {
+		return comorbidities;
+	}
+
 	public void setComorbidities(String comorbidities) {
 		this.comorbidities = comorbidities;
+	}
+
+	public String getSymptomsSeverity() {
+		return symptomsSeverity;
 	}
 
 	public void setSymptomsSeverity(String symptomsSeverity) {
 		this.symptomsSeverity = symptomsSeverity;
 	}
 
+	public String getCondition() {
+		return condition;
+	}
+
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+
+	public String getTreatmentPlan() {
+		return treatmentPlan;
 	}
 
 	public void setTreatmentPlan(String treatmentPlan) {
 		this.treatmentPlan = treatmentPlan;
 	}
 
+	public String getPeriodOfTreatment() {
+		return periodOfTreatment;
+	}
+
 	public void setPeriodOfTreatment(String periodOfTreatment) {
 		this.periodOfTreatment = periodOfTreatment;
+	}
+
+	public String getMethodOfTreatmentAdministration() {
+		return methodOfTreatmentAdministration;
 	}
 
 	public void setMethodOfTreatmentAdministration(String methodOfTreatmentAdministration) {
 		this.methodOfTreatmentAdministration = methodOfTreatmentAdministration;
 	}
 
+	public int getFrequencyOfAdministrationPerDay() {
+		return frequencyOfAdministrationPerDay;
+	}
+
 	public void setFrequencyOfAdministrationPerDay(int frequencyOfAdministrationPerDay) {
 		this.frequencyOfAdministrationPerDay = frequencyOfAdministrationPerDay;
+	}
+
+	public int getFrequencyOfAdministrationPerWeek() {
+		return frequencyOfAdministrationPerWeek;
 	}
 
 	public void setFrequencyOfAdministrationPerWeek(int frequencyOfAdministrationPerWeek) {
 		this.frequencyOfAdministrationPerWeek = frequencyOfAdministrationPerWeek;
 	}
 
+	public String getResult() {
+		return result;
+	}
+
 	public void setResult(String result) {
 		this.result = result;
+	}
+
+	public String getSideEffects() {
+		return sideEffects;
 	}
 
 	public void setSideEffects(String sideEffects) {
 		this.sideEffects = sideEffects;
 	}
 
+	public String getSourceOfInfection() {
+		return sourceOfInfection;
+	}
+
 	public void setSourceOfInfection(String sourceOfInfection) {
 		this.sourceOfInfection = sourceOfInfection;
+	}
+
+	public String getPatientInfectivity() {
+		return patientInfectivity;
 	}
 
 	public void setPatientInfectivity(String patientInfectivity) {
@@ -198,6 +207,7 @@ public class Patient {
 				", sideEffects='" + sideEffects + '\'' +
 				", sourceOfInfection='" + sourceOfInfection + '\'' +
 				", patientInfectivity='" + patientInfectivity + '\'' +
+				", doctorID='" + doctorID + '\'' +
 				'}';
 	}
 }

@@ -17,9 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,7 +32,7 @@ public class NewPatient extends AppCompatActivity {
 	ProgressBar progressBar;
 	ScrollView sv;
 	Patient patient;
-	private DatabaseReference databaseReference;
+	private DatabaseReference patientDB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class NewPatient extends AppCompatActivity {
 		sv = findViewById(R.id.scrollView);
 		progressBar = findViewById(R.id.progressBar);
 		progressBar.setVisibility(View.INVISIBLE);
-		databaseReference = FirebaseDatabase.getInstance().getReference().child("patients");
+		patientDB = FirebaseDatabase.getInstance().getReference().child("patients");
 
 		patient = new Patient();
 		patient.setInitial();
@@ -296,7 +296,8 @@ public class NewPatient extends AppCompatActivity {
 			return;
 		}
 
-		databaseReference.push().setValue(patient).addOnSuccessListener(aVoid -> {
+		patient.setDoctorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+		patientDB.push().setValue(patient).addOnSuccessListener(aVoid -> {
 			Log.d(TAG, "uploadData onSuccess: Data successfully uploaded to firebase");
 			Toast.makeText(NewPatient.this, "Patient Data Successfully Added", Toast.LENGTH_SHORT).show();
 			progressBar.setVisibility(View.INVISIBLE);
