@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Asklepius">
-        <activity android:name=".NewPatient"></activity>
+        <activity android:name=".ViewUploadedData"></activity>
+        <activity android:name=".NewPatient" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

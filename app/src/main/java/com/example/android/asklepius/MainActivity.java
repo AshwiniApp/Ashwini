@@ -72,4 +72,10 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 	}
+
+	public void onViewPatientDataButtonClicked(View view) {
+		// Launch view patient activity
+		Intent intent = new Intent(this, ViewUploadedData.class);
+		startActivity(intent);
+	}
 }
