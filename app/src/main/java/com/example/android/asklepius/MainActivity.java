@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				Patient patient;
+				patients.clear();
 				for (DataSnapshot childSnapshot: snapshot.getChildren()) {
 					patient = childSnapshot.getValue(Patient.class);
 					Log.d(TAG, "onDataChange: " + patient);

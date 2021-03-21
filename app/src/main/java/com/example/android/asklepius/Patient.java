@@ -2,11 +2,12 @@ package com.example.android.asklepius;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class Patient {
+public class Patient implements Serializable {
 	public String name;
 	public String sex;
 	public int age;

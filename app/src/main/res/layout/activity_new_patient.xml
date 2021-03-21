@@ -249,7 +249,8 @@
                 android:autofillHints="Heart Disease"
                 android:ems="10"
                 android:hint="@string/comorbidity_description"
-                android:inputType="textShortMessage" />
+                android:inputType="textShortMessage"
+                android:enabled="false"/>
         </LinearLayout>
 
         <TextView

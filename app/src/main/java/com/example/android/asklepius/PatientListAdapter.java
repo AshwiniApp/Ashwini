@@ -1,22 +1,27 @@
 package com.example.android.asklepius;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.ViewHolder> {
-	private final List<Patient> patientsDataset;
+public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.ViewHolder> implements Serializable {
+	private static List<Patient> patientsDataset;
 
+	private static final String TAG = "PatientListAdapter";
 	public PatientListAdapter(List<Patient> patients) {
-		this.patientsDataset = patients;
+		patientsDataset = patients;
 	}
 
 	/**
@@ -107,7 +112,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 		return symptomString.toString();
 	}
 
-	public static class ViewHolder extends RecyclerView.ViewHolder {
+	public static class ViewHolder extends RecyclerView.ViewHolder implements Serializable {
 
 		TextView patientNameTextView;
 		TextView patientAgeTextView;
@@ -127,6 +132,21 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 			patientComorbiditiesTextView = itemView.findViewById(R.id.textView_comorbidities_display);
 			patientSymptomSeverityTextView = itemView.findViewById(R.id.textView_symptom_severity_display);
 			patientConditionTextView = itemView.findViewById(R.id.textView_patient_condition_display);
+
+			itemView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					int position = getAdapterPosition();
+
+					Patient patient = patientsDataset.get(position);
+
+					Log.d(TAG, "onClick: Patient DATA: " + patient.toString());
+					
+//					Intent intent = new Intent(this, DisplayPatientData.class);
+//					intent.putExtra("display", patient);
+//					itemView.getContext().startActivity(intent);
+				}
+			});
 		}
 	}
 
