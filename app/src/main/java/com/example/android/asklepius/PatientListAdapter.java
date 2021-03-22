@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.ViewHolder> implements Serializable {
+public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.ViewHolder> {
 	private static List<Patient> patientsDataset;
 
 	private static final String TAG = "PatientListAdapter";
@@ -142,9 +142,9 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 
 					Log.d(TAG, "onClick: Patient DATA: " + patient.toString());
 					
-//					Intent intent = new Intent(this, DisplayPatientData.class);
-//					intent.putExtra("display", patient);
-//					itemView.getContext().startActivity(intent);
+					Intent intent = new Intent(itemView.getContext(), DisplayPatientData.class);
+					intent.putExtra("display", patient);
+					itemView.getContext().startActivity(intent);
 				}
 			});
 		}
