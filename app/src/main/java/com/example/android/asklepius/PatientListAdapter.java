@@ -75,12 +75,12 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 		Patient patient = patientsDataset.get(position);
 		holder.patientNameTextView.setText("Patient's Name: " + patient.getName());
-		holder.patientAgeTextView.setText("Patient's Age: " + String.valueOf(patient.getAge()));
-		holder.patientSexTextView.setText("Patient's Sex: " + patient.getSex());
-		holder.patientSymptomsTextView.setText("Patient's Symptoms: " + formatSymptoms(patient));
-		holder.patientComorbiditiesTextView.setText("Patient's Comorbidities: " + patient.getComorbidities());
-		holder.patientSymptomSeverityTextView.setText("Patient's Symptom Severity: " + patient.getSymptomsSeverity());
-		holder.patientConditionTextView.setText("Patient's Condition: " + patient.getCondition());
+		holder.patientAgeTextView.setText("Age: " + String.valueOf(patient.getAge()));
+		holder.patientSexTextView.setText("Sex: " + patient.getSex());
+		holder.patientSymptomsTextView.setText("Symptoms: " + formatSymptoms(patient));
+		holder.patientComorbiditiesTextView.setText("Comorbidities: " + patient.getComorbidities());
+		holder.patientSymptomSeverityTextView.setText("Symptom Severity: " + patient.getSymptomsSeverity());
+		holder.patientConditionTextView.setText("Condition: " + patient.getCondition());
 	}
 
 	/**
