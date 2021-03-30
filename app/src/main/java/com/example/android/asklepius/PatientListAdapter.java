@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -74,13 +74,13 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 	@Override
 	public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 		Patient patient = patientsDataset.get(position);
-		holder.patientNameTextView.setText(patient.getName());
-		holder.patientAgeTextView.setText(String.valueOf(patient.getAge()));
-		holder.patientSexTextView.setText(patient.getSex());
-		holder.patientSymptomsTextView.setText(formatComorbidities(patient));
-		holder.patientComorbiditiesTextView.setText(patient.getComorbidities());
-		holder.patientSymptomSeverityTextView.setText(patient.getSymptomsSeverity());
-		holder.patientConditionTextView.setText(patient.getCondition());
+		holder.patientNameTextView.setText("Patient's Name: " + patient.getName());
+		holder.patientAgeTextView.setText("Patient's Age: " + String.valueOf(patient.getAge()));
+		holder.patientSexTextView.setText("Patient's Sex: " + patient.getSex());
+		holder.patientSymptomsTextView.setText("Patient's Symptoms: " + formatSymptoms(patient));
+		holder.patientComorbiditiesTextView.setText("Patient's Comorbidities: " + patient.getComorbidities());
+		holder.patientSymptomSeverityTextView.setText("Patient's Symptom Severity: " + patient.getSymptomsSeverity());
+		holder.patientConditionTextView.setText("Patient's Condition: " + patient.getCondition());
 	}
 
 	/**
@@ -93,23 +93,22 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 		return patientsDataset.size();
 	}
 
-	private String formatComorbidities(Patient patient) {
-		StringBuilder symptomString = new StringBuilder();
+	private String formatSymptoms(Patient patient) {
+		List<String> symptomList = new ArrayList<>();
 		Map<String, Boolean> symptoms = patient.getSymptomList();
-		symptomString.append("Fever: ").append(symptoms.get("Fever")).append("\n");
-		symptomString.append("Fatigue: ").append(symptoms.get("Fatigue")).append("\n");
-		symptomString.append("Dry Cough: ").append(symptoms.get("Dry Cough")).append("\n");
-		symptomString.append("Aches and Pains: ").append(symptoms.get("Aches and Pains")).append("\n");
-		symptomString.append("Sore Throat: ").append(symptoms.get("Sore Throat")).append("\n");
-		symptomString.append("Nasal Congestion: ").append(symptoms.get("Nasal Congestion")).append("\n");
-		symptomString.append("Runny Nose: ").append(symptoms.get("Runny Nose")).append("\n");
-		symptomString.append("Diarrhoea: ").append(symptoms.get("Diarrhoea")).append("\n");
-		symptomString.append("Anosmia: ").append(symptoms.get("Anosmia")).append("\n");
-		symptomString.append("Rash: ").append(symptoms.get("Rash")).append("\n");
-		symptomString.append("Conjunctivitis: ").append(symptoms.get("Conjunctivitis")).append("\n");
-		symptomString.append("Headache: ").append(symptoms.get("Headache")).append("\n");
-		symptomString.append("Asymptomatic: ").append(symptoms.get("Asymptomatic"));
-		return symptomString.toString();
+		for (String key : symptoms.keySet()) {
+			if (symptoms.get(key)) {
+				symptomList.add(key);
+			}
+		}
+
+		StringBuilder string = new StringBuilder();
+		string.append(symptomList.get(0));
+		for (int i = 1; i < symptomList.size(); i++) {
+			string.append(", ").append(symptomList.get(i));
+		}
+
+		return string.toString();
 	}
 
 	public static class ViewHolder extends RecyclerView.ViewHolder implements Serializable {

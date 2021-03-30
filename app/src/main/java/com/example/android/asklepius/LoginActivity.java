@@ -31,7 +31,9 @@ public class LoginActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		getSupportActionBar().hide();
+		if (getSupportActionBar() != null) {
+			getSupportActionBar().hide();
+		}
 
 		// Initiates the FirebaseUI for auth
 		startActivityForResult(
@@ -48,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		if (requestCode == RC_SIGN_IN) {
-			IdpResponse response = IdpResponse.fromResultIntent(data);
 			if (resultCode == RESULT_OK) {
 				setResult(resultCode);
 				Log.d(TAG, "onActivityResult: Sign In Successful!");

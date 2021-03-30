@@ -4,6 +4,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
@@ -41,7 +42,7 @@ public class Patient implements Serializable {
 	// Default constructor to initialize some fields of the patient data
 	// We'll go with Java defaults for the fields that are not initialized here
 	public void setInitial() {
-		symptomList = new HashMap<String, Boolean>(13);
+		symptomList = new LinkedHashMap<String, Boolean>(13);
 		symptomList.put("Fever", false);
 		symptomList.put("Fatigue", false);
 		symptomList.put("Dry Cough", false);
