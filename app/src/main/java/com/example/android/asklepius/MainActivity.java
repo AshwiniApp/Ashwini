@@ -79,4 +79,9 @@ public class MainActivity extends AppCompatActivity {
 		Intent intent = new Intent(this, ViewUploadedData.class);
 		startActivity(intent);
 	}
+
+	public void onSearchPatientDataButtonClicked(View view) {
+		Intent intent = new Intent(this, SearchParameters.class);
+		startActivity(intent);
+	}
 }
