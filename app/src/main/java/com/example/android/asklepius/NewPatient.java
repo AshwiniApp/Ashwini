@@ -6,7 +6,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -17,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.material.chip.Chip;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -124,88 +124,82 @@ public class NewPatient extends AppCompatActivity {
 	 * Checks and sets symptoms list upon submission. Couldn't figure out a better way to do this.
 	 * @return whether at least one checkbox has been checked
 	 */
-	private boolean symptomListCheckboxes() {
+	private boolean symptomListChips() {
 		boolean checked = false;
-		CheckBox checkBox = findViewById(R.id.checkBox_fever);
-		if (checkBox.isChecked()) {
+		Chip chip = findViewById(R.id.chip_fever);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Fever", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_fatigue);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_fatigue);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Fatigue", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_dry_cough);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_dry_cough);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Dry Cough", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_aches_and_pains);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_aches_and_pains);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Aches and Pains", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_sore_throat);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_sore_throat);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Sore Throat", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_nasal_congestion);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_nasal_congestion);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Nasal Congestion", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_runny_nose);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_runny_nose);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Runny Nose", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_diarrhoea);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_diarrhoea);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Diarrhoea", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_anosmia);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_anosmia);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Anosmia", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_nasal_congestion);
-		if (checkBox.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Nasal Congestion", true);
-		}
-
-		checkBox = findViewById(R.id.checkBox_rash);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_rash);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Rash", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_conjunctivitis);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_conjunctivitis);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Conjunctivitis", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_headache);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_headache);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Headache", true);
 		}
 
-		checkBox = findViewById(R.id.checkBox_asymptomatic);
-		if (checkBox.isChecked()) {
+		chip = findViewById(R.id.chip_asymptomatic);
+		if (chip.isChecked()) {
 			checked = true;
 			patient.symptomList.put("Asymptomatic", true);
 		}
@@ -252,7 +246,7 @@ public class NewPatient extends AppCompatActivity {
 		}
 
 		// Checks if minimum one of the checkboxes in the symptom list has been selected
-		if (symptomListCheckboxes() == false) {
+		if (symptomListChips() == false) {
 			errorScrollToView("Please specify at least one symptom!", R.id.textView_patient_symptoms);
 		}
 

@@ -121,90 +121,102 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <com.google.android.material.chip.ChipGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="vertical">
+            android:layout_margin="8dp">
 
-            <CheckBox
-                android:id="@+id/checkBox_fever"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_fever"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_fever" />
 
-            <CheckBox
-                android:id="@+id/checkBox_fatigue"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_fatigue"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_fatigue" />
 
-            <CheckBox
-                android:id="@+id/checkBox_dry_cough"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_dry_cough"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_dry_cough" />
 
-            <CheckBox
-                android:id="@+id/checkBox_aches_and_pains"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_aches_and_pains"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_aches_and_pains" />
 
-            <CheckBox
-                android:id="@+id/checkBox_sore_throat"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_sore_throat"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_sore_throat" />
 
-            <CheckBox
-                android:id="@+id/checkBox_nasal_congestion"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_nasal_congestion"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_nasal_congestion" />
 
-            <CheckBox
-                android:id="@+id/checkBox_runny_nose"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_runny_nose"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_runny_nose" />
 
-            <CheckBox
-                android:id="@+id/checkBox_diarrhoea"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_diarrhoea"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_diarrhoea" />
 
-            <CheckBox
-                android:id="@+id/checkBox_anosmia"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_anosmia"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_anosmia" />
 
-            <CheckBox
-                android:id="@+id/checkBox_rash"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_rash"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_rash" />
 
-            <CheckBox
-                android:id="@+id/checkBox_conjunctivitis"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_conjunctivitis"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_conjunctivitis" />
 
-            <CheckBox
-                android:id="@+id/checkBox_headache"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_headache"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_headache" />
 
-            <CheckBox
-                android:id="@+id/checkBox_asymptomatic"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_asymptomatic"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/symptom_asymptomatic" />
-        </LinearLayout>
+        </com.google.android.material.chip.ChipGroup>
 
         <TextView
             android:id="@+id/textView_comorbidity"
