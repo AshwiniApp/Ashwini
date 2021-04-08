@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -47,6 +48,20 @@ public class NewPatient extends AppCompatActivity {
 		patient = new Patient();
 		patient.setInitial();
 		setSliderTags();
+
+		inflateSymptomChips();
+	}
+
+	/**
+	 * Inflates filter chips that allow symptoms to be selected
+	 */
+	private void inflateSymptomChips() {
+		ChipGroup symptomChipGroup = findViewById(R.id.chipGroup_symptoms);
+		for (String symptom : Values.symptoms) {
+			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.symptom_chip_single, symptomChipGroup, false);
+			symptomChipGroup.addView(chip);
+			chip.setText(symptom);
+		}
 	}
 
 	/**
@@ -121,91 +136,21 @@ public class NewPatient extends AppCompatActivity {
 
 	/**
 	 * Helper method for onSubmitButtonClicked()
-	 * Checks and sets symptoms list upon submission. Couldn't figure out a better way to do this.
+	 * Checks and sets symptoms map upon submission.
 	 * @return whether at least one checkbox has been checked
 	 */
 	private boolean symptomListChips() {
 		boolean checked = false;
-		Chip chip = findViewById(R.id.chip_fever);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Fever", true);
-		}
-
-		chip = findViewById(R.id.chip_fatigue);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Fatigue", true);
-		}
-
-		chip = findViewById(R.id.chip_dry_cough);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Dry Cough", true);
-		}
-
-		chip = findViewById(R.id.chip_aches_and_pains);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Aches and Pains", true);
-		}
-
-		chip = findViewById(R.id.chip_sore_throat);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Sore Throat", true);
-		}
-
-		chip = findViewById(R.id.chip_nasal_congestion);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Nasal Congestion", true);
-		}
-
-		chip = findViewById(R.id.chip_runny_nose);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Runny Nose", true);
-		}
-
-		chip = findViewById(R.id.chip_diarrhoea);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Diarrhoea", true);
-		}
-
-		chip = findViewById(R.id.chip_anosmia);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Anosmia", true);
-		}
-
-		chip = findViewById(R.id.chip_rash);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Rash", true);
-		}
-
-		chip = findViewById(R.id.chip_conjunctivitis);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Conjunctivitis", true);
-		}
-
-		chip = findViewById(R.id.chip_headache);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Headache", true);
-		}
-
-		chip = findViewById(R.id.chip_asymptomatic);
-		if (chip.isChecked()) {
-			checked = true;
-			patient.symptomList.put("Asymptomatic", true);
+		ChipGroup symptomsChipGroup = findViewById(R.id.chipGroup_symptoms);
+		for (int i = 0; i < symptomsChipGroup.getChildCount(); i++) {
+			Chip chip = (Chip) symptomsChipGroup.getChildAt(i);
+			if (chip.isChecked()) {
+				checked = true;
+				patient.symptomList.put(chip.getText().toString(), true);
+			}
 		}
 
 		return checked;
-
 	}
 
 	/**
