@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.textservice.TextInfo;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -109,12 +112,20 @@ public class SearchParameters extends AppCompatActivity {
 
 	public void onSearchButtonClicked(View view) {
 		// Get Symptoms
+		boolean checked = false;
 		ChipGroup symptomsChipGroup = findViewById(R.id.chipGroup_symptoms);
 		for (int i = 0; i < symptomsChipGroup.getChildCount(); i++) {
 			Chip chip = (Chip) symptomsChipGroup.getChildAt(i);
 			if (chip.isChecked()) {
 				symptoms.add(chip.getText().toString());
+				checked = true;
 			}
+		}
+		
+		if (checked == false) {
+			ScrollView sv = findViewById(R.id.scrollView);
+			sv.smoothScrollTo(0, (int) ((TextView) findViewById(R.id.textView_patient_symptoms)).getY());
+			Toast.makeText(this, "Please select at least one symptom to generate the results!", Toast.LENGTH_SHORT).show();
 		}
 
 		// Get Patient Age
