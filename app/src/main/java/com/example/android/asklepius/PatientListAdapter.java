@@ -96,7 +96,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 	private String formatSymptoms(Patient patient) {
 		List<String> symptomList = new ArrayList<>();
 		Map<String, Boolean> symptoms = patient.getSymptomList();
-		for (String key : symptoms.keySet()) {
+		for (String key : Values.symptoms) {
 			if (symptoms.get(key)) {
 				symptomList.add(key);
 			}

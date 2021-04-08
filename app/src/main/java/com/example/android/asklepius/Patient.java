@@ -43,19 +43,9 @@ public class Patient implements Serializable {
 	// We'll go with Java defaults for the fields that are not initialized here
 	public void setInitial() {
 		symptomList = new LinkedHashMap<String, Boolean>(13);
-		symptomList.put("Fever", false);
-		symptomList.put("Fatigue", false);
-		symptomList.put("Dry Cough", false);
-		symptomList.put("Aches and Pains", false);
-		symptomList.put("Sore Throat", false);
-		symptomList.put("Nasal Congestion", false);
-		symptomList.put("Runny Nose", false);
-		symptomList.put("Diarrhoea", false);
-		symptomList.put("Anosmia", false);
-		symptomList.put("Rash", false);
-		symptomList.put("Conjunctivitis", false);
-		symptomList.put("Headache", false);
-		symptomList.put("Asymptomatic", false);
+		for (String symptom : Values.symptoms) {
+			symptomList.put(symptom, false);
+		}
 
 		symptomsSeverity = "Very Mild";
 		condition = "Very Mild";
