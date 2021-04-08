@@ -1,9 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SearchParameters">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/search_patient_data"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/please_fill_out_all_the_fields_below_to_generate_the_best_possible_matches"
+            android:textSize="18sp" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/textView_patient_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/patient_s_sex"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <RadioButton
+                android:id="@+id/radioButton_sex_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="onSexSelectRadioButtonClicked"
+                android:text="@string/male" />
+
+            <RadioButton
+                android:id="@+id/radioButton_sex_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onSexSelectRadioButtonClicked"
+                android:text="@string/female" />
+
+            <RadioButton
+                android:id="@+id/radioButton_sex_other"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onSexSelectRadioButtonClicked"
+                android:text="@string/other_without_colon" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_patient_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/patient_s_age"
+            android:padding="8dp"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/patient_s_age"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView_patient_symptoms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/symptoms_shown"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_symptoms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp">
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_fever"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_fever" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_fatigue"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_fatigue" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_dry_cough"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_dry_cough" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_aches_and_pains"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_aches_and_pains" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_sore_throat"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_sore_throat" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_nasal_congestion"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_nasal_congestion" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_runny_nose"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_runny_nose" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_diarrhoea"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_diarrhoea" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_anosmia"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_anosmia" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_rash"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_rash" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_conjunctivitis"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_conjunctivitis" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_headache"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_headache" />-->
+
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_asymptomatic"-->
+<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_asymptomatic" />-->
+        </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/textView_comorbidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/comorbidties"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButton_comorbidity_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="onComorbiditySelectRadioButtonClicked"
+                android:text="@string/no" />
+
+            <RadioButton
+                android:id="@+id/radioButton_comorbidity_yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onComorbiditySelectRadioButtonClicked"
+                android:text="@string/yes" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/severity_of_symptoms"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_symptom_severity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stepSize="20.0"
+            android:valueFrom="0.0"
+            android:valueTo="80.0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/condition_of_the_patient"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_patient_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stepSize="20.0"
+            android:valueFrom="0.00"
+            android:valueTo="80.0" />
+
+        <Button
+            android:id="@+id/button_search_patient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/search"
+            android:onClick="onSearchButtonClicked"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+
+</ScrollView>
