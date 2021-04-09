@@ -269,6 +269,13 @@
             android:layout_margin="16dp"
             android:layout_gravity="center_horizontal"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar_search_patient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"/>
+
     </LinearLayout>
 
 </ScrollView>

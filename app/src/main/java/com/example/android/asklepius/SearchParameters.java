@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.textservice.TextInfo;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,11 +32,14 @@ public class SearchParameters extends AppCompatActivity {
 	String comorbidity = "No";
 	List<String> symptoms = new ArrayList<>();
 	int age;
+	ProgressBar progressBar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_parameters);
+		progressBar = findViewById(R.id.progressBar_search_patient);
+		progressBar.setVisibility(View.GONE);
 		setSliderTags();
 		inflateChips();
 	}
@@ -128,6 +132,7 @@ public class SearchParameters extends AppCompatActivity {
 			ScrollView sv = findViewById(R.id.scrollView);
 			sv.smoothScrollTo(0, (int) ((TextView) findViewById(R.id.textView_patient_symptoms)).getY());
 			Toast.makeText(this, "Please select at least one symptom to generate the results!", Toast.LENGTH_SHORT).show();
+			return;
 		}
 
 		// Get Patient Age
@@ -135,6 +140,7 @@ public class SearchParameters extends AppCompatActivity {
 		EditText ageText = ageInputLayout.getEditText();
 		if (ageText.getText().toString().trim().isEmpty()) {
 			ageInputLayout.setError("Please input patient's age to get matches!");
+			return;
 		} else {
 			age = Integer.parseInt(ageText.getText().toString().trim());
 		}
@@ -146,6 +152,9 @@ public class SearchParameters extends AppCompatActivity {
 	}
 
 	private void generateSearchResults() {
+
+		progressBar.setVisibility(View.VISIBLE);
+
 		List<Patient> currentFilteredPatients = new ArrayList<>();
 		List<Patient> previouslyFilteredPatients;
 
@@ -263,6 +272,8 @@ public class SearchParameters extends AppCompatActivity {
 				currentFilteredPatients.add(patient);
 			}
 		}
+
+		progressBar.setVisibility(View.GONE);
 
 		DisplaySearchResults.filteredList = currentFilteredPatients;
 		Intent intent = new Intent(this, DisplaySearchResults.class);
