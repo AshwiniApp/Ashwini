@@ -216,25 +216,7 @@ public class SearchParameters extends AppCompatActivity {
 		currentFilteredPatients = new ArrayList<>();
 
 		// Filter by Severity
-		String[] range;
-		switch (severity) {
-			case "Very Mild":
-				range = new String[]{"Very Mild", "Very Mild", "Mild"};
-				break;
-			case "Mild":
-				range = new String[]{"Very Mild", "Mild", "Moderate"};
-				break;
-			case "Moderate":
-				range = new String[]{"Mild", "Moderate", "Severe"};
-				break;
-			case "Severe":
-				range = new String[]{"Moderate", "Severe", "Very Severe"};
-				break;
-			default:
-				range = new String[]{"Severe", "Very Severe", "Very Severe"};
-				break;
-		}
-
+		String[] range = Values.getSeverityAndConditionSearchRange(severity);
 		for (Patient patient : previouslyFilteredPatients) {
 			if (patient.getSymptomsSeverity().equals(range[0]) ||
 					patient.getSymptomsSeverity().equals(range[1]) ||
@@ -247,24 +229,7 @@ public class SearchParameters extends AppCompatActivity {
 		currentFilteredPatients = new ArrayList<>();
 
 		// Filter by condition
-		switch (condition) {
-			case "Very Mild":
-				range = new String[]{"Very Mild", "Very Mild", "Mild"};
-				break;
-			case "Mild":
-				range = new String[]{"Very Mild", "Mild", "Moderate"};
-				break;
-			case "Moderate":
-				range = new String[]{"Mild", "Moderate", "Severe"};
-				break;
-			case "Severe":
-				range = new String[]{"Moderate", "Severe", "Very Severe"};
-				break;
-			default:
-				range = new String[]{"Severe", "Very Severe", "Very Severe"};
-				break;
-		}
-
+		range = Values.getSeverityAndConditionSearchRange(condition);
 		for (Patient patient : previouslyFilteredPatients) {
 			if (patient.getCondition().equals(range[0]) ||
 					patient.getCondition().equals(range[1]) ||
