@@ -20,7 +20,7 @@ public class ViewUploadedData extends AppCompatActivity {
 
 		RecyclerView recyclerView = findViewById(R.id.recylerView_uploaded_patient_data);
 		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-		PatientListAdapter adapter = new PatientListAdapter(getFilteredPatientData());
+		PatientListAdapter adapter = new PatientListAdapter(getFilteredPatientData(), false);
 		recyclerView.setAdapter(adapter);
 	}
 

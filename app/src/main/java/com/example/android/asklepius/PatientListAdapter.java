@@ -18,10 +18,12 @@ import java.util.Map;
 
 public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.ViewHolder> {
 	private static List<Patient> patientsDataset;
+	private static boolean nameConfidential;
 
 	private static final String TAG = "PatientListAdapter";
-	public PatientListAdapter(List<Patient> patients) {
+	public PatientListAdapter(List<Patient> patients, boolean nameConfidential) {
 		patientsDataset = patients;
+		this.nameConfidential = nameConfidential;
 	}
 
 	/**
@@ -81,6 +83,11 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
 		holder.patientComorbiditiesTextView.setText("Comorbidities: " + patient.getComorbidities());
 		holder.patientSymptomSeverityTextView.setText("Symptom Severity: " + patient.getSymptomsSeverity());
 		holder.patientConditionTextView.setText("Condition: " + patient.getCondition());
+
+		// If patient name is confidential
+		if (nameConfidential) {
+			holder.patientNameTextView.setVisibility(View.GONE);
+		}
 	}
 
 	/**

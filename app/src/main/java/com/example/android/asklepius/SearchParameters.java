@@ -2,6 +2,7 @@ package com.example.android.asklepius;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SearchParameters extends AppCompatActivity {
 
@@ -53,7 +55,7 @@ public class SearchParameters extends AppCompatActivity {
 			break;
 			case R.id.radioButton_sex_female: sex = "Female";
 			break;
-			case R.id.editText_patient_sex_other: sex = "Other";
+			case R.id.radioButton_sex_other: sex = "Other";
 			break;
 		}
 	}
@@ -139,5 +141,131 @@ public class SearchParameters extends AppCompatActivity {
 
 		Log.d(TAG, "onSearchButtonClicked: " + sex + "\n" + age + "\n" + symptoms.toString() +
 				comorbidity + "\n" + severity + "\n" + condition);
+
+		generateSearchResults();
+	}
+
+	private void generateSearchResults() {
+		List<Patient> currentFilteredPatients = new ArrayList<>();
+		List<Patient> previouslyFilteredPatients;
+
+		// Filter ages with a relaxation key of 4
+		for (Patient patient : MainActivity.patients) {
+			if (patient.age >= age - 4 && patient.age <= age + 4) {
+				currentFilteredPatients.add(patient);
+			}
+		}
+		previouslyFilteredPatients = currentFilteredPatients;
+		currentFilteredPatients = new ArrayList<>();
+
+		// Filter male and female sex
+		if (sex.equals("Male") || sex.equals("Female")) {
+			for (Patient patient : previouslyFilteredPatients) {
+				if (patient.sex.equals(sex)) {
+					currentFilteredPatients.add(patient);
+				}
+			}
+		} else {
+			// For sex specified as other
+			for (Patient patient : previouslyFilteredPatients) {
+				if (!patient.sex.equals("Male") && !patient.sex.equals("Female")) {
+					currentFilteredPatients.add(patient);
+				}
+			}
+		}
+		previouslyFilteredPatients = currentFilteredPatients;
+		currentFilteredPatients = new ArrayList<>();
+
+		// Filter by Symptoms
+		for (String symptom : symptoms) {
+			for (Patient patient : previouslyFilteredPatients) {
+				if (patient.getSymptomList().get(symptom)) {
+					currentFilteredPatients.add(patient);
+				}
+			}
+
+			previouslyFilteredPatients = currentFilteredPatients;
+			currentFilteredPatients = new ArrayList<>();
+		}
+
+		// Filter by Comorbidity
+		if (comorbidity.equals("No")) {
+			for (Patient patient : previouslyFilteredPatients) {
+				if (patient.getComorbidities().equals("No")) {
+					currentFilteredPatients.add(patient);
+				}
+			}
+		} else {
+			for (Patient patient : previouslyFilteredPatients) {
+				if (! patient.getComorbidities().equals("No")) {
+					currentFilteredPatients.add(patient);
+				}
+			}
+		}
+
+		previouslyFilteredPatients = currentFilteredPatients;
+		currentFilteredPatients = new ArrayList<>();
+
+		// Filter by Severity
+		String[] range;
+		switch (severity) {
+			case "Very Mild":
+				range = new String[]{"Very Mild", "Very Mild", "Mild"};
+				break;
+			case "Mild":
+				range = new String[]{"Very Mild", "Mild", "Moderate"};
+				break;
+			case "Moderate":
+				range = new String[]{"Mild", "Moderate", "Severe"};
+				break;
+			case "Severe":
+				range = new String[]{"Moderate", "Severe", "Very Severe"};
+				break;
+			default:
+				range = new String[]{"Severe", "Very Severe", "Very Severe"};
+				break;
+		}
+
+		for (Patient patient : previouslyFilteredPatients) {
+			if (patient.getSymptomsSeverity().equals(range[0]) ||
+					patient.getSymptomsSeverity().equals(range[1]) ||
+					patient.getSymptomsSeverity().equals(range[2])) {
+				currentFilteredPatients.add(patient);
+			}
+		}
+
+		previouslyFilteredPatients = currentFilteredPatients;
+		currentFilteredPatients = new ArrayList<>();
+
+		// Filter by condition
+		switch (condition) {
+			case "Very Mild":
+				range = new String[]{"Very Mild", "Very Mild", "Mild"};
+				break;
+			case "Mild":
+				range = new String[]{"Very Mild", "Mild", "Moderate"};
+				break;
+			case "Moderate":
+				range = new String[]{"Mild", "Moderate", "Severe"};
+				break;
+			case "Severe":
+				range = new String[]{"Moderate", "Severe", "Very Severe"};
+				break;
+			default:
+				range = new String[]{"Severe", "Very Severe", "Very Severe"};
+				break;
+		}
+
+		for (Patient patient : previouslyFilteredPatients) {
+			if (patient.getCondition().equals(range[0]) ||
+					patient.getCondition().equals(range[1]) ||
+					patient.getCondition().equals(range[2])) {
+				currentFilteredPatients.add(patient);
+			}
+		}
+
+		DisplaySearchResults.filteredList = currentFilteredPatients;
+		Intent intent = new Intent(this, DisplaySearchResults.class);
+		startActivity(intent);
 	}
 }

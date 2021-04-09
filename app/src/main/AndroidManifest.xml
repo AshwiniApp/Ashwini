@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Asklepius">
-        <activity android:name=".SearchParameters"></activity>
+        <activity android:name=".DisplaySearchResults"></activity>
+        <activity android:name=".SearchParameters" />
         <activity android:name=".DisplayPatientData" />
         <activity android:name=".ViewUploadedData" />
         <activity android:name=".NewPatient" />
