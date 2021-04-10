@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -28,8 +31,20 @@ public class DisplaySearchResults extends AppCompatActivity {
 		}
 
 		RecyclerView recyclerView = findViewById(R.id.recyclerView_search_results);
-		recyclerView.setLayoutManager(new LinearLayoutManager(this));
-		PatientListAdapter adapter = new PatientListAdapter(filteredList, true);
-		recyclerView.setAdapter(adapter);
+
+		if (filteredList.isEmpty()) {
+			Snackbar.make(recyclerView, "Looks like there aren't any great matches for your search right now!", Snackbar.LENGTH_INDEFINITE)
+					.setAction("Okay", new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							// Do nothing
+						}
+					})
+					.show();
+		} else {
+			recyclerView.setLayoutManager(new LinearLayoutManager(this));
+			PatientListAdapter adapter = new PatientListAdapter(filteredList, true);
+			recyclerView.setAdapter(adapter);
+		}
 	}
 }
