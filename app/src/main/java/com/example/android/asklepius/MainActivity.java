@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
 		FloatingActionButton fab = findViewById(R.id.fab);
 		fab.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), NewPatient.class)));
 
+		initializePatientDB();
+	}
+
+	private void initializePatientDB() {
 		patientDB = FirebaseDatabase.getInstance().getReference().child("patients");
 
 		// Attaching a ValueEventListener is better, since upon any changes, the entire list is
