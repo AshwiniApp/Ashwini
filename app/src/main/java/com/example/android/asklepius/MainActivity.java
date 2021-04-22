@@ -1,14 +1,13 @@
 package com.example.android.asklepius;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -17,16 +16,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = "MainActivity";
-	DatabaseReference patientDB;
-	static List<Patient> patients = new ArrayList<>();
 
 	private static final int LOGIN_ACTIVITY_REQUEST_CODE = 262;
+	List<Patient> patients = Values.patients;
+	DatabaseReference patientDB;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 			}
 		};
 		patientDB.addValueEventListener(patientChangeListener);
+		Values.patientDB = patientDB;
 	}
 
 	/**

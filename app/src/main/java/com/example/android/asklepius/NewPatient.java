@@ -22,7 +22,6 @@ import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class NewPatient extends AppCompatActivity {
 
@@ -43,7 +42,7 @@ public class NewPatient extends AppCompatActivity {
 		sv = findViewById(R.id.scrollView);
 		progressBar = findViewById(R.id.progressBar);
 		progressBar.setVisibility(View.INVISIBLE);
-		patientDB = FirebaseDatabase.getInstance().getReference().child("patients");
+		patientDB = Values.patientDB;
 
 		patient = new Patient();
 		patient.setInitial();

@@ -1,11 +1,11 @@
 package com.example.android.asklepius;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +41,7 @@ public class ViewUploadedData extends AppCompatActivity {
 	private List<Patient> getFilteredPatientData() {
 		String doctorID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 		List<Patient> patients = new ArrayList<>();
-		for (Patient patient : MainActivity.patients) {
+		for (Patient patient : Values.patients) {
 			if (patient.getDoctorID().equals(doctorID)) {
 				patients.add(patient);
 			}

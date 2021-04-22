@@ -1,27 +1,24 @@
 package com.example.android.asklepius;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.textservice.TextInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class SearchParameters extends AppCompatActivity {
 
@@ -159,7 +156,7 @@ public class SearchParameters extends AppCompatActivity {
 		List<Patient> previouslyFilteredPatients;
 
 		// Filter ages with a relaxation key of 4
-		for (Patient patient : MainActivity.patients) {
+		for (Patient patient : Values.patients) {
 			if (patient.age >= age - 4 && patient.age <= age + 4) {
 				currentFilteredPatients.add(patient);
 			}
