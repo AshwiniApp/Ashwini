@@ -40,11 +40,17 @@ public class MainActivity extends AppCompatActivity {
 		fab.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), NewPatient.class)));
 
 		patientDB = FirebaseDatabase.getInstance().getReference().child("patients");
+
+		// Attaching a ValueEventListener is better, since upon any changes, the entire list is
+		// updated. This prevents writing methods for adding, updating and deleting data.
 		ValueEventListener patientChangeListener = new ValueEventListener() {
 			@Override
 			public void onDataChange(@NonNull DataSnapshot snapshot) {
 				Patient patient;
 				patients.clear();
+
+				// The parameter snapshot basically contains the entire list. We iterate on the list
+				// by calling the getChildren method on the param snapshot
 				for (DataSnapshot childSnapshot: snapshot.getChildren()) {
 					patient = childSnapshot.getValue(Patient.class);
 					Log.d(TAG, "onDataChange: " + patient);
@@ -74,12 +80,18 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
+	/**
+	 * Launch the view uploaded patient data activity
+	 */
 	public void onViewPatientDataButtonClicked(View view) {
 		// Launch view patient activity
 		Intent intent = new Intent(this, ViewUploadedData.class);
 		startActivity(intent);
 	}
 
+	/**
+	 * Launch the search patient activity
+	 */
 	public void onSearchPatientDataButtonClicked(View view) {
 		Intent intent = new Intent(this, SearchParameters.class);
 		startActivity(intent);

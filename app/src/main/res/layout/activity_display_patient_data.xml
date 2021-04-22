@@ -47,100 +47,101 @@
             android:textStyle="bold" />
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_symptoms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_fever"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_fever"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_fever"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_fever"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_fatigue"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_fatigue"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_fatigue"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_fatigue"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_dry_cough"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/symptom_dry_cough"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_dry_cough"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:text="@string/symptom_dry_cough"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_aches_and_pains"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_aches_and_pains"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_aches_and_pains"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_aches_and_pains"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_sore_throat"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_sore_throat"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_sore_throat"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_sore_throat"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_nasal_congestion"
-                android:enabled="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_nasal_congestion"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_nasal_congestion"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_nasal_congestion"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_runny_nose"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_runny_nose"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_runny_nose"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_runny_nose"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_diarrhoea"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_diarrhoea"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_diarrhoea"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_diarrhoea"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_anosmia"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_anosmia"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_anosmia"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_anosmia"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_rash"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_rash"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_rash"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_rash"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_conjunctivitis"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_conjunctivitis"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_conjunctivitis"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_conjunctivitis"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_headache"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:text="@string/symptom_headache"/>
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_headache"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:text="@string/symptom_headache"/>-->
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_asymptomatic"
-                android:layout_width="wrap_content"
-                android:enabled="false"
-                android:layout_height="wrap_content"
-                android:text="@string/symptom_asymptomatic" />
+<!--            <com.google.android.material.chip.Chip-->
+<!--                android:id="@+id/chip_asymptomatic"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:enabled="false"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/symptom_asymptomatic" />-->
 
         </com.google.android.material.chip.ChipGroup>
 

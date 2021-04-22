@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Map;
@@ -25,6 +26,9 @@ public class DisplayPatientData extends AppCompatActivity {
 		setData();
 	}
 
+	/**
+	 * Set data fields in the activity
+	 */
 	private void setData() {
 
 		setSymptoms();
@@ -45,27 +49,19 @@ public class DisplayPatientData extends AppCompatActivity {
 		setTextFields(R.id.textField_display_patient_infectivity, patient.getPatientInfectivity());
 	}
 
+	/**
+	 * Inflate and set symptom chips in the activity
+	 */
 	private void setSymptoms() {
 		Map<String, Boolean> symptoms = patient.getSymptomList();
-		setSymptomChips(R.id.chip_fever, symptoms.get("Fever"));
-		setSymptomChips(R.id.chip_fatigue, symptoms.get("Fatigue"));
-		setSymptomChips(R.id.chip_dry_cough, symptoms.get("Dry Cough"));
-		setSymptomChips(R.id.chip_aches_and_pains, symptoms.get("Aches and Pains"));
-		setSymptomChips(R.id.chip_sore_throat, symptoms.get("Sore Throat"));
-		setSymptomChips(R.id.chip_nasal_congestion, symptoms.get("Nasal Congestion"));
-		setSymptomChips(R.id.chip_runny_nose, symptoms.get("Runny Nose"));
-		setSymptomChips(R.id.chip_diarrhoea, symptoms.get("Diarrhoea"));
-		setSymptomChips(R.id.chip_anosmia, symptoms.get("Anosmia"));
-		setSymptomChips(R.id.chip_rash, symptoms.get("Rash"));
-		setSymptomChips(R.id.chip_conjunctivitis, symptoms.get("Conjunctivitis"));
-		setSymptomChips(R.id.chip_headache, symptoms.get("Headache"));
-		setSymptomChips(R.id.chip_asymptomatic, symptoms.get("Asymptomatic"));
-	}
-
-	private void setSymptomChips(@IdRes int resourceID, boolean value) {
-		Chip chip = findViewById(resourceID);
-		if (value == false) {
-			chip.setVisibility(View.GONE);
+		ChipGroup symptomsChipGroups = findViewById(R.id.chipGroup_symptoms);
+		for (String symptom : Values.symptoms) {
+			if (symptoms.get(symptom)) {
+				Chip chip = (Chip) getLayoutInflater().inflate(R.layout.symptom_chip_single, symptomsChipGroups, false);
+				symptomsChipGroups.addView(chip);
+				chip.setText(symptom);
+				chip.setEnabled(false);
+			}
 		}
 	}
 
