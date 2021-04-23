@@ -35,6 +35,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Current Status: Unsubmitted"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -63,8 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:errorEnabled="true"
         android:layout_marginEnd="8dp"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar_upload_status">
@@ -76,28 +77,17 @@
             android:inputType="textShortMessage" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageButton
-        android:id="@+id/imageButton_take_ID_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:onClick="onTakeIDImageButtonClicked"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField_ICMR_ID"
-        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
-
     <Button
         android:id="@+id/button_submit_validation_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:enabled="false"
         android:onClick="onSubmitValidationInfoButtonClicked"
         android:text="Submit Validation Info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton_take_ID_image" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton6" />
 
     <TextView
         android:id="@+id/textView_validation_rejection_reason"
@@ -106,8 +96,32 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
+        android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_validation_status" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="16dp"
+        android:onClick="onTakeIDImageButtonClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField_ICMR_ID"
+        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="128dp"
+        android:onClick="onSelectIDImageButtonClicked"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField_ICMR_ID"
+        app:srcCompat="@drawable/ic_baseline_photo_album_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

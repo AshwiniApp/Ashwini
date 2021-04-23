@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity {
                         ((TextView) findViewById(R.id.textView_welcome)).setText("ICMR Validation in process!");
                     } else {
                         // User is verified.
-                        ((TextView) findViewById(R.id.textView_welcome)).setText("Hello, " + user.username);
                         setContentToMain();
+                        ((TextView) findViewById(R.id.textView_welcome)).setText("Hello, " + user.username.split(" ")[0]);
                     }
                 } else {
                     Log.d(TAG, "onDataChange userDB: no user data obtained from rtdb");

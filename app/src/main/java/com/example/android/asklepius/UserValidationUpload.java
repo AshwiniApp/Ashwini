@@ -38,13 +38,15 @@ public class UserValidationUpload extends AppCompatActivity {
 
     private boolean unregistered = true;
     private static final String TAG = "UserValidationUpload";
-    File imageFile;
-    String imageURL;
-    Uri imageUri;
-    StorageReference storage;
+    private File imageFile;
+    private String imageURL;
+    private Uri imageUri;
+    private StorageReference storage;
     private static final int REQUEST_IMAGE_CAPTURE = 887;
     public static User user;
     private boolean uploaded = false;
+    private static final int PICK_IMAGE = 313;
+    private Snackbar uploadingSnackBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +56,9 @@ public class UserValidationUpload extends AppCompatActivity {
         // If user is not null, that means the user already exists in the database, leading to the
         // only possibility that is rejection.
         if (user != null) {
-            ((TextView) findViewById(R.id.textView_validation_status)).setText(Values.userVerificationState.Rejected.toString());
+            ((TextView) findViewById(R.id.textView_validation_status)).setText("Current Status: " + Values.userVerificationState.Rejected.toString());
             TextView rejectionStatusTextView = findViewById(R.id.textView_validation_rejection_reason);
-            rejectionStatusTextView.setText(user.rejectionReason);
+            rejectionStatusTextView.setText("Rejection Reason: " + user.rejectionReason);
             rejectionStatusTextView.setVisibility(View.VISIBLE);
 
             ((TextInputLayout) findViewById(R.id.textField_ICMR_ID)).getEditText().setText(user.regID);
@@ -77,6 +79,13 @@ public class UserValidationUpload extends AppCompatActivity {
 
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    public void onSelectIDImageButtonClicked(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE);
     }
 
     private File createImageFile() {
@@ -108,8 +117,13 @@ public class UserValidationUpload extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Toast.makeText(UserValidationUpload.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "onSuccess: Image uploaded");
+                uploadingSnackBar.dismiss();
                 ((Button) findViewById(R.id.button_submit_validation_info)).setEnabled(true);
-                imageFile.delete();
+                try {
+                    imageFile.delete();
+                } catch (NullPointerException e) {
+                    // DO nothing, the file's been selected from the gallery
+                }
 
                 imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -139,7 +153,15 @@ public class UserValidationUpload extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Snackbar.make(((Button) findViewById(R.id.button_submit_validation_info)), "Uploading Image", Snackbar.LENGTH_SHORT).show();
+            uploadingSnackBar = Snackbar.make(((Button) findViewById(R.id.button_submit_validation_info)), "Uploading Image", Snackbar.LENGTH_INDEFINITE);
+            uploadingSnackBar.show();
+            uploadImage();
+        }
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
+            imageUri = data.getData();
+            uploadingSnackBar = Snackbar.make(((Button) findViewById(R.id.button_submit_validation_info)), "Uploading Image", Snackbar.LENGTH_INDEFINITE);
+            uploadingSnackBar.show();
             uploadImage();
         }
     }
@@ -166,11 +188,18 @@ public class UserValidationUpload extends AppCompatActivity {
         }
 
         if (unregistered) {
-            User user = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), null,
+            User user = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
                     FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
             DatabaseReference userDB = Values.userDB;
-            userDB.push().setValue(user);
-            uploaded = true;
+            userDB.push().setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    uploaded = true;
+                    Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+
         } else {
             DatabaseReference userDB = Values.userDB;
             ValueEventListener listener = new ValueEventListener() {
@@ -178,11 +207,18 @@ public class UserValidationUpload extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot childrenSnapshot : snapshot.getChildren()) {
                         if (childrenSnapshot.getValue(User.class).equals(user)) {
-                            User newUser = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), null,
+                            User newUser = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
                                     FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                             String key = childrenSnapshot.getKey();
-                            userDB.child(key).setValue(newUser);
-                            uploaded = true;
+                            userDB.child(key).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    uploaded = true;
+                                    Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            });
+
                         }
                     }
                 }
