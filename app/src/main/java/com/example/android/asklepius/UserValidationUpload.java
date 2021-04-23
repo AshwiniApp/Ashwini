@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,6 +50,17 @@ public class UserValidationUpload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_validation_upload);
+
+        // If user is not null, that means the user already exists in the database, leading to the
+        // only possibility that is rejection.
+        if (user != null) {
+            ((TextView) findViewById(R.id.textView_validation_status)).setText(Values.userVerificationState.Rejected.toString());
+            TextView rejectionStatusTextView = findViewById(R.id.textView_validation_rejection_reason);
+            rejectionStatusTextView.setText(user.rejectionReason);
+            rejectionStatusTextView.setVisibility(View.VISIBLE);
+
+            ((TextInputLayout) findViewById(R.id.textField_ICMR_ID)).getEditText().setText(user.regID);
+        }
 
         storage = FirebaseStorage.getInstance().getReference();
     }

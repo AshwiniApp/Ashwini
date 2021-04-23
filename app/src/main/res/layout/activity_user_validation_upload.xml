@@ -46,7 +46,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_validation_status" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_validation_rejection_reason" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar_upload_status"
@@ -98,5 +98,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton_take_ID_image" />
+
+    <TextView
+        android:id="@+id/textView_validation_rejection_reason"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_validation_status" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
