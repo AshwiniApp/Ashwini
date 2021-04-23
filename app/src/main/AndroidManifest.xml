@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Asklepius">
-        <activity android:name=".DisplaySearchResults"></activity>
+        <activity android:name=".UserValidationUpload"></activity>
+        <activity android:name=".DisplaySearchResults" />
         <activity android:name=".SearchParameters" />
         <activity android:name=".DisplayPatientData" />
         <activity android:name=".ViewUploadedData" />
@@ -29,6 +30,16 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.filecontentprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

@@ -8,7 +8,13 @@ import java.util.List;
 public class Values {
 
 	public static List<Patient> patients = new ArrayList<>();
+	public static List<User> users = new ArrayList<>();
 	public static DatabaseReference patientDB;
+	public static DatabaseReference userDB;
+
+	public enum userVerificationState {
+		Verified, Rejected, Pending
+	}
 
 	public static final String[] symptoms = {
 			"Fever",
