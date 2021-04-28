@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.empty_screen);
+        setContentView(R.layout.loading_screen);
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivityForResult(intent, LOGIN_ACTIVITY_REQUEST_CODE);
