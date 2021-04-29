@@ -33,7 +33,7 @@ public class ViewUploadedData extends AppCompatActivity {
 					.show();
 		} else {
 			recyclerView.setLayoutManager(new LinearLayoutManager(this));
-			PatientListAdapter adapter = new PatientListAdapter(filteredData, false);
+			PatientListAdapter adapter = new PatientListAdapter(filteredData, false, this);
 			recyclerView.setAdapter(adapter);
 		}
 	}
@@ -41,7 +41,7 @@ public class ViewUploadedData extends AppCompatActivity {
 	private List<Patient> getFilteredPatientData() {
 		String doctorID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 		List<Patient> patients = new ArrayList<>();
-		for (Patient patient : Values.patients) {
+		for (Patient patient : Values.patients.keySet()) {
 			if (patient.getDoctorID().equals(doctorID)) {
 				patients.add(patient);
 			}

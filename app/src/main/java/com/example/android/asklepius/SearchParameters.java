@@ -156,7 +156,7 @@ public class SearchParameters extends AppCompatActivity {
 		List<Patient> previouslyFilteredPatients;
 
 		// Filter ages with a relaxation key of 4
-		for (Patient patient : Values.patients) {
+		for (Patient patient : Values.patients.keySet()) {
 			if (patient.age >= age - 4 && patient.age <= age + 4) {
 				currentFilteredPatients.add(patient);
 			}

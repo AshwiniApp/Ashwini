@@ -3,11 +3,13 @@ package com.example.android.asklepius;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Values {
 
-	public static List<Patient> patients = new ArrayList<>();
+	public static Map<Patient, String> patients = new HashMap<>();
 	public static List<User> users = new ArrayList<>();
 	public static DatabaseReference patientDB;
 	public static DatabaseReference userDB;

@@ -5,6 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @IgnoreExtraProperties
 public class Patient implements Serializable {
@@ -200,5 +201,34 @@ public class Patient implements Serializable {
 				", patientInfectivity='" + patientInfectivity + '\'' +
 				", doctorID='" + doctorID + '\'' +
 				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Patient patient = (Patient) o;
+		return age == patient.age &&
+				frequencyOfAdministrationPerDay == patient.frequencyOfAdministrationPerDay &&
+				frequencyOfAdministrationPerWeek == patient.frequencyOfAdministrationPerWeek &&
+				Objects.equals(name, patient.name) &&
+				Objects.equals(sex, patient.sex) &&
+				Objects.equals(symptomList, patient.symptomList) &&
+				Objects.equals(comorbidities, patient.comorbidities) &&
+				Objects.equals(symptomsSeverity, patient.symptomsSeverity) &&
+				Objects.equals(condition, patient.condition) &&
+				Objects.equals(treatmentPlan, patient.treatmentPlan) &&
+				Objects.equals(periodOfTreatment, patient.periodOfTreatment) &&
+				Objects.equals(methodOfTreatmentAdministration, patient.methodOfTreatmentAdministration) &&
+				Objects.equals(result, patient.result) &&
+				Objects.equals(sideEffects, patient.sideEffects) &&
+				Objects.equals(sourceOfInfection, patient.sourceOfInfection) &&
+				Objects.equals(patientInfectivity, patient.patientInfectivity) &&
+				Objects.equals(doctorID, patient.doctorID);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, sex, age, symptomList, comorbidities, symptomsSeverity, condition, treatmentPlan, periodOfTreatment, methodOfTreatmentAdministration, frequencyOfAdministrationPerDay, frequencyOfAdministrationPerWeek, result, sideEffects, sourceOfInfection, patientInfectivity, doctorID);
 	}
 }

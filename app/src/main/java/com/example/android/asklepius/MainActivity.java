@@ -19,13 +19,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
     private static final int LOGIN_ACTIVITY_REQUEST_CODE = 262;
-    List<Patient> patients = Values.patients;
+    Map<Patient, String> patients = Values.patients;
     List<User> users = Values.users;
     DatabaseReference patientDB;
     DatabaseReference userDB;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     patient = childSnapshot.getValue(Patient.class);
                     Log.d(TAG, "onDataChange patientDB: " + patient);
-                    patients.add(patient);
+                    patients.put(patient, childSnapshot.getKey());
                 }
             }
 
