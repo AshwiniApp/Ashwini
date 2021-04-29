@@ -1,11 +1,12 @@
 package com.example.android.asklepius;
 
-import androidx.annotation.IdRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.EditText;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -72,5 +73,15 @@ public class DisplayPatientData extends AppCompatActivity {
 		textInputLayout = findViewById(resourceID);
 		editText = textInputLayout.getEditText();
 		editText.setText(setString);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home: onBackPressed();
+				break;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }

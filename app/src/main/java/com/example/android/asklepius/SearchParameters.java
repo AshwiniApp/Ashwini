@@ -3,6 +3,7 @@ package com.example.android.asklepius;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -10,6 +11,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.chip.Chip;
@@ -240,5 +242,15 @@ public class SearchParameters extends AppCompatActivity {
 		DisplaySearchResults.filteredList = currentFilteredPatients;
 		Intent intent = new Intent(this, DisplaySearchResults.class);
 		startActivity(intent);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home: onBackPressed();
+				break;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }

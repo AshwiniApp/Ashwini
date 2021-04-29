@@ -1,8 +1,10 @@
 package com.example.android.asklepius;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ public class ViewUploadedData extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_uploaded_data);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		List<Patient> filteredData = getFilteredPatientData();
 		RecyclerView recyclerView = findViewById(R.id.recylerView_uploaded_patient_data);
@@ -48,5 +51,15 @@ public class ViewUploadedData extends AppCompatActivity {
 		}
 
 		return patients;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home: onBackPressed();
+			break;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }

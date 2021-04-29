@@ -16,7 +16,7 @@
         <activity android:name=".DisplaySearchResults" />
         <activity android:name=".SearchParameters" />
         <activity android:name=".DisplayPatientData" />
-        <activity android:name=".ViewUploadedData" />
+        <activity android:name=".ViewUploadedData"/>
         <activity android:name=".NewPatient" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
