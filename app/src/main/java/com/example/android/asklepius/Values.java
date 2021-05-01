@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Values {
 
@@ -13,9 +14,28 @@ public class Values {
 	public static List<User> users = new ArrayList<>();
 	public static DatabaseReference patientDB;
 	public static DatabaseReference userDB;
+	public static Map<Float, String> intensity;
+
+	static {
+		intensity = new HashMap<>();
+		intensity.put(0.00f, "Very Mild");
+		intensity.put(20.0f, "Mild");
+		intensity.put(40.0f, "Moderate");
+		intensity.put(60.0f, "Severe");
+		intensity.put(80.0f, "Very Severe");
+	}
 
 	public enum userVerificationState {
 		Verified, Rejected, Pending
+	}
+
+	public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+		for (Map.Entry<T, E> entry : map.entrySet()) {
+			if (Objects.equals(value, entry.getValue())) {
+				return entry.getKey();
+			}
+		}
+		return null;
 	}
 
 	public static final String[] symptoms = {
