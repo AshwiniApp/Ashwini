@@ -1,5 +1,6 @@
 package com.example.android.asklepius;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,7 +17,7 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
+import com.example.android.asklepius.databinding.ActivityNewPatientBinding;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
@@ -34,15 +35,18 @@ public class NewPatient extends AppCompatActivity {
 	ScrollView sv;
 	Patient patient;
 	private DatabaseReference patientDB;
+	private ActivityNewPatientBinding binding;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_new_patient);
+
+		binding = ActivityNewPatientBinding.inflate(getLayoutInflater());
+		setContentView(binding.getRoot());
 		getSupportActionBar().setTitle("Add New Patient");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		sv = findViewById(R.id.scrollView);
-		progressBar = findViewById(R.id.progressBar);
+		sv = binding.scrollView;
+		progressBar = binding.progressBar;
 		progressBar.setVisibility(View.INVISIBLE);
 		patientDB = Values.patientDB;
 
@@ -57,7 +61,7 @@ public class NewPatient extends AppCompatActivity {
 	 * Inflates filter chips that allow symptoms to be selected
 	 */
 	private void inflateSymptomChips() {
-		ChipGroup symptomChipGroup = findViewById(R.id.chipGroup_symptoms);
+		ChipGroup symptomChipGroup = binding.chipGroupSymptoms;
 		for (String symptom : Values.symptoms) {
 			Chip chip = (Chip) getLayoutInflater().inflate(R.layout.symptom_chip_single, symptomChipGroup, false);
 			symptomChipGroup.addView(chip);
@@ -70,7 +74,7 @@ public class NewPatient extends AppCompatActivity {
 	 * callback listeners for setting the value upon selection.
 	 */
 	public void setSliderTags() {
-		Slider symptomSeveritySlider = findViewById(R.id.slider_symptom_severity);
+		Slider symptomSeveritySlider = binding.sliderSymptomSeverity;
 		symptomSeveritySlider.setLabelFormatter(value -> {
 
 			Log.d(TAG, "setSliderTags: " + value);
@@ -92,7 +96,7 @@ public class NewPatient extends AppCompatActivity {
 			return patient.getSymptomsSeverity();
 		});
 
-		Slider conditionSlider = findViewById(R.id.slider_patient_condition);
+		Slider conditionSlider = binding.sliderPatientCondition;
 		conditionSlider.setLabelFormatter(value -> {
 			Log.d(TAG, "setSliderTags: " + value);
 			if (value == 0.00) {
@@ -117,8 +121,9 @@ public class NewPatient extends AppCompatActivity {
 	 * or Female is chosen, or waits for setting in onSubmitButtonClicked() in case of
 	 * specification of sex.
 	 */
+	@SuppressLint("NonConstantResourceId")
 	public void onSexSelectRadioButtonClicked(View view) {
-		EditText otherSexInput = findViewById(R.id.editText_patient_sex_other);
+		EditText otherSexInput = binding.editTextPatientSexOther;
 		isSexSelected = true;
 		switch (view.getId()) {
 			case R.id.radioButton_sex_male:
@@ -142,7 +147,7 @@ public class NewPatient extends AppCompatActivity {
 	 */
 	private boolean symptomListChips() {
 		boolean checked = false;
-		ChipGroup symptomsChipGroup = findViewById(R.id.chipGroup_symptoms);
+		ChipGroup symptomsChipGroup = binding.chipGroupSymptoms;
 		for (int i = 0; i < symptomsChipGroup.getChildCount(); i++) {
 			Chip chip = (Chip) symptomsChipGroup.getChildAt(i);
 			if (chip.isChecked()) {
@@ -166,8 +171,8 @@ public class NewPatient extends AppCompatActivity {
 	public void onSubmitButtonClicked(View view) {
 		hasError = false;
 
-		patient.setPatientInfectivity(((TextInputLayout) findViewById(R.id.textField_patient_infectivity)).getEditText().getText().toString());
-		patient.setSourceOfInfection(((TextInputLayout) findViewById(R.id.textField_source_of_infection)).getEditText().getText().toString());
+		patient.setPatientInfectivity(binding.textFieldPatientInfectivity.getEditText().getText().toString());
+		patient.setSourceOfInfection(binding.textFieldSourceOfInfection.getEditText().getText().toString());
 
 		checkTextInputField(R.id.textField_side_effects, "effects", "Please specify any side effects that the patient had from the treatment!");
 		checkTextInputField(R.id.textField_result, "result", "Please specify the results obtained on treatment administration!");
@@ -179,8 +184,8 @@ public class NewPatient extends AppCompatActivity {
 
 		// Checks for empty response in comorbidity specification
 		// The code section was small enough to not require a refactor
-		EditText comorbidityDescription = findViewById(R.id.editText_comorbidties);
-		if (isComorbiditySelected == false) {
+		EditText comorbidityDescription = binding.editTextComorbidties;
+		if (!isComorbiditySelected) {
 			errorScrollToView("Please specify whether the patient had any comorbidities!", R.id.textView_comorbidity);
 		} else if (comorbidityDescription.isEnabled()) {
 			String description = comorbidityDescription.getText().toString();
@@ -192,7 +197,7 @@ public class NewPatient extends AppCompatActivity {
 		}
 
 		// Checks if minimum one of the checkboxes in the symptom list has been selected
-		if (symptomListChips() == false) {
+		if (!symptomListChips()) {
 			errorScrollToView("Please specify at least one symptom!", R.id.textView_patient_symptoms);
 		}
 
@@ -200,8 +205,8 @@ public class NewPatient extends AppCompatActivity {
 
 		// Checks for empty response in sex specification
 		// The code section was small enough to not require a refactor
-		EditText otherSexInputEditText = findViewById(R.id.editText_patient_sex_other);
-		if (isSexSelected == false) {
+		EditText otherSexInputEditText = binding.editTextPatientSexOther;
+		if (!isSexSelected) {
 			errorScrollToView("Please specify patient's sex!", R.id.textView_patient_sex);
 			hasError = true;
 		} else if (otherSexInputEditText.isEnabled()) {
@@ -216,7 +221,7 @@ public class NewPatient extends AppCompatActivity {
 
 		checkTextInputField(R.id.textField_patient_name, "name", "Please specify the patient's name!");
 
-		if (hasError == false) {
+		if (!hasError) {
 			progressBar.setVisibility(View.VISIBLE);
 			uploadData();
 		}
@@ -230,7 +235,7 @@ public class NewPatient extends AppCompatActivity {
 	public void uploadData() {
 		Log.d(TAG, "uploadData: " + patient);
 
-		if (isOnline() == false) {
+		if (!isOnline()) {
 			Toast.makeText(this, "Please check your internet connection!", Toast.LENGTH_SHORT).show();
 			progressBar.setVisibility(View.INVISIBLE);
 			return;
@@ -243,23 +248,21 @@ public class NewPatient extends AppCompatActivity {
 			progressBar.setVisibility(View.INVISIBLE);
 			finish();
 		})
-				.addOnFailureListener(new OnFailureListener() {
-					@Override
-					public void onFailure(@NonNull Exception e) {
-						Log.d(TAG, "uploadData onFailure: Data Upload Failed!");
-						Toast.makeText(NewPatient.this, "Patient Data Addition Failed! Please check your network!", Toast.LENGTH_SHORT).show();
-						progressBar.setVisibility(View.INVISIBLE);
-						finish();
-					}
+				.addOnFailureListener(e -> {
+					Log.d(TAG, "uploadData onFailure: Data Upload Failed!");
+					Toast.makeText(NewPatient.this, "Patient Data Addition Failed! Please check your network!", Toast.LENGTH_SHORT).show();
+					progressBar.setVisibility(View.INVISIBLE);
+					finish();
 				});
 	}
 
 	/**
 	 * Invoked when the user selects a comorbidity state.
 	 */
+	@SuppressLint("NonConstantResourceId")
 	public void onComorbiditySelectRadioButtonClicked(View view) {
 		isComorbiditySelected = true;
-		EditText comorbidityDescription = findViewById(R.id.editText_comorbidties);
+		EditText comorbidityDescription = binding.editTextComorbidties;
 		switch (view.getId()) {
 			case R.id.radioButton_comorbidity_no:
 				patient.setComorbidities("No");
@@ -337,9 +340,8 @@ public class NewPatient extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home: onBackPressed();
-				break;
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
 		}
 
 		return super.onOptionsItemSelected(item);
