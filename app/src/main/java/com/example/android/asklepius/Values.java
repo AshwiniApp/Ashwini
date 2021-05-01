@@ -15,6 +15,7 @@ public class Values {
 	public static DatabaseReference patientDB;
 	public static DatabaseReference userDB;
 	public static Map<Float, String> intensity;
+	public static final int EDIT_PATIENT_DATA = 642;
 
 	static {
 		intensity = new HashMap<>();

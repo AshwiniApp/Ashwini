@@ -315,6 +315,7 @@ public class NewPatient extends AppCompatActivity {
 					Log.d(TAG, "uploadData onSuccess Edit: Data edit uploaded to firebase");
 					Toast.makeText(NewPatient.this, "Patient Data Successfully Edited", Toast.LENGTH_SHORT).show();
 					progressBar.setVisibility(View.INVISIBLE);
+					setResult(RESULT_OK);
 					finish();
 				}
 			}).addOnFailureListener(new OnFailureListener() {
@@ -323,6 +324,7 @@ public class NewPatient extends AppCompatActivity {
 					Log.d(TAG, "uploadData onFailure: Data Edit Upload Failed!");
 					Toast.makeText(NewPatient.this, "Patient Data Edit Failed! Please check your network!", Toast.LENGTH_SHORT).show();
 					progressBar.setVisibility(View.INVISIBLE);
+					setResult(RESULT_CANCELED);
 					finish();
 				}
 			});

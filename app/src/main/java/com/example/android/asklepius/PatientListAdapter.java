@@ -1,6 +1,5 @@
 package com.example.android.asklepius;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,12 +27,13 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
     private static final int VIEW_PATIENT = 133;
     private static final int EDIT_PATIENT = 132;
     private static final int DELETE_PATIENT = 527;
-    static Context activityContext;
+    static AppCompatActivity activityContext;
     static PatientListAdapter currentContext;
     private static List<Patient> patientsDataset;
     private static boolean searchMode;
 
-    public PatientListAdapter(List<Patient> patients, boolean nameConfidentialParam, Context activityContextParam) {
+
+    public PatientListAdapter(List<Patient> patients, boolean nameConfidentialParam, AppCompatActivity activityContextParam) {
         patientsDataset = patients;
         searchMode = nameConfidentialParam;
         activityContext = activityContextParam;
@@ -54,7 +55,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
         intent.putExtra("editKey", key);
         Log.d(TAG, "onClick: Patient DATA: " + patient);
         Log.d(TAG, "onClick: Patient KEY: " + key);
-        activityContext.startActivity(intent);
+        activityContext.startActivityForResult(intent, Values.EDIT_PATIENT_DATA);
     }
 
     private static void deletePatient(int position) {
