@@ -4,13 +4,14 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class Values {
 
-	public static Map<Patient, String> patients = new HashMap<>();
+	public static Map<Patient, String> patients = new LinkedHashMap<>();
 	public static List<User> users = new ArrayList<>();
 	public static DatabaseReference patientDB;
 	public static DatabaseReference userDB;
