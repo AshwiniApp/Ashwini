@@ -24,6 +24,8 @@ public class DisplaySearchResults extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_search_results);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("Search Results");
 
 		if (filteredList == null) {
 			Log.d(TAG, "onCreate: null filteredList");
@@ -51,9 +53,8 @@ public class DisplaySearchResults extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home: onBackPressed();
-				break;
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
 		}
 
 		return super.onOptionsItemSelected(item);

@@ -22,6 +22,8 @@ public class DisplayPatientData extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_patient_data);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("Patient Data");
 
 		patient = (Patient) getIntent().getSerializableExtra("display");
 		setData();
@@ -77,9 +79,8 @@ public class DisplayPatientData extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home: onBackPressed();
-				break;
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
 		}
 
 		return super.onOptionsItemSelected(item);

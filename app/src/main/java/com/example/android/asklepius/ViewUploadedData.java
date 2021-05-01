@@ -22,6 +22,7 @@ public class ViewUploadedData extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_uploaded_data);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("Uploaded Patient Data");
 
 		List<Patient> filteredData = getFilteredPatientData();
 		RecyclerView recyclerView = findViewById(R.id.recylerView_uploaded_patient_data);
@@ -55,9 +56,8 @@ public class ViewUploadedData extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home: onBackPressed();
-			break;
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
 		}
 
 		return super.onOptionsItemSelected(item);

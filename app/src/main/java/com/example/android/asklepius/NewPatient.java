@@ -40,6 +40,7 @@ public class NewPatient extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_patient);
 		getSupportActionBar().setTitle("Add New Patient");
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		sv = findViewById(R.id.scrollView);
 		progressBar = findViewById(R.id.progressBar);
 		progressBar.setVisibility(View.INVISIBLE);

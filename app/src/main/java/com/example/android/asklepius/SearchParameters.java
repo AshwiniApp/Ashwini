@@ -37,6 +37,8 @@ public class SearchParameters extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_parameters);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle("Search Patient Data");
 		progressBar = findViewById(R.id.progressBar_search_patient);
 		progressBar.setVisibility(View.GONE);
 		setSliderTags();
@@ -246,9 +248,8 @@ public class SearchParameters extends AppCompatActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home: onBackPressed();
-				break;
+		if (item.getItemId() == android.R.id.home) {
+			onBackPressed();
 		}
 
 		return super.onOptionsItemSelected(item);
