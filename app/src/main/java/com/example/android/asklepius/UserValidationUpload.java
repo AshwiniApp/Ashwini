@@ -17,16 +17,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -44,7 +44,6 @@ public class UserValidationUpload extends AppCompatActivity {
     private StorageReference storage;
     private static final int REQUEST_IMAGE_CAPTURE = 887;
     public static User user;
-    private boolean uploaded = false;
     private static final int PICK_IMAGE = 313;
     private Snackbar uploadingSnackBar;
 
@@ -203,11 +202,13 @@ public class UserValidationUpload extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        if (uploaded) {
-            super.onBackPressed();
-        } else {
-            Toast.makeText(this, "Please upload your validation details first!", Toast.LENGTH_SHORT).show();
-        }
+        storage.child("images/" + FirebaseAuth.getInstance().getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
     }
 
     /**
@@ -233,45 +234,37 @@ public class UserValidationUpload extends AppCompatActivity {
             userDB.push().setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    uploaded = true;
                     Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
                     finish();
                 }
             });
-
         } else {
-            DatabaseReference userDB = Values.userDB;
-            ValueEventListener listener = new ValueEventListener() {
+            Values.userDB.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot childrenSnapshot : snapshot.getChildren()) {
+                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                    for (DataSnapshot childrenSnapshot : task.getResult().getChildren()) {
                         if (childrenSnapshot.getValue(User.class).equals(user)) {
                             User newUser = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
                                     FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                             String key = childrenSnapshot.getKey();
-                            userDB.child(key).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            Values.userDB.child(key).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    uploaded = true;
                                     Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
+                                    setResult(RESULT_OK);
                                     finish();
                                 }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "onFailure: " + e.toString());
+                                }
                             });
-
                         }
                     }
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.d(TAG, "onCancelled: " + error.toException());
-                }
-            };
-            userDB.addListenerForSingleValueEvent(listener);
-
-            if (uploaded) {
-                userDB.removeEventListener(listener);
-            }
+            });
         }
     }
 }
