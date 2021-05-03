@@ -13,10 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,15 +28,20 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
     private static final int VIEW_PATIENT = 133;
     private static final int EDIT_PATIENT = 132;
     private static final int DELETE_PATIENT = 527;
-    static AppCompatActivity activityContext;
+    static ViewUploadedData activityContext;
     static PatientListAdapter currentContext;
     private static List<Patient> patientsDataset;
     private static boolean searchMode;
 
-
-    public PatientListAdapter(List<Patient> patients, boolean nameConfidentialParam, AppCompatActivity activityContextParam) {
+    public PatientListAdapter(List<Patient> patients) {
         patientsDataset = patients;
-        searchMode = nameConfidentialParam;
+        searchMode = true;
+        currentContext = this;
+    }
+
+
+    public PatientListAdapter(List<Patient> patients, ViewUploadedData activityContextParam) {
+        patientsDataset = patients;
         activityContext = activityContextParam;
         currentContext = this;
     }
@@ -66,13 +72,35 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
         Values.patientDB.child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(activityContext, "Patient Record Successfully deleted!", Toast.LENGTH_SHORT).show();
+                Snackbar.make(activityContext.binding.recylerViewUploadedPatientData, "Patient Deleted", Snackbar.LENGTH_SHORT)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Values.patientDB.child(key).setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        patientsDataset.add(position, patient);
+                                        currentContext.notifyItemInserted(position);
+                                        currentContext.notifyItemRangeChanged(position, patientsDataset.size());
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(activityContext, "Could Not Restore The Deleted Patient!", Toast.LENGTH_SHORT).show();
+                                        Log.d(TAG, "onFailure: Could not restore: " + e.toString());
+                                    }
+                                });
+
+                            }
+                        }).show();
             }
         });
 
         patientsDataset.remove(position);
         currentContext.notifyItemRemoved(position);
         currentContext.notifyItemRangeChanged(position, patientsDataset.size());
+
+
     }
 
     /**

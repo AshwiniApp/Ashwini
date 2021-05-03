@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.android.asklepius.databinding.ActivityViewUploadedDataBinding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -19,15 +20,18 @@ import java.util.List;
 
 public class ViewUploadedData extends AppCompatActivity {
 
+	ActivityViewUploadedDataBinding binding;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_uploaded_data);
+		binding = ActivityViewUploadedDataBinding.inflate(getLayoutInflater());
+		setContentView(binding.getRoot());
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("Uploaded Patient Data");
 
 		List<Patient> filteredData = getFilteredPatientData();
-		RecyclerView recyclerView = findViewById(R.id.recylerView_uploaded_patient_data);
+		RecyclerView recyclerView = binding.recylerViewUploadedPatientData;
 		if (filteredData.isEmpty()) {
 			Snackbar.make(recyclerView, "Looks like you haven't done any uploads yet!", Snackbar.LENGTH_INDEFINITE)
 					.setAction("Okay", new View.OnClickListener() {
@@ -39,7 +43,7 @@ public class ViewUploadedData extends AppCompatActivity {
 					.show();
 		} else {
 			recyclerView.setLayoutManager(new LinearLayoutManager(this));
-			PatientListAdapter adapter = new PatientListAdapter(filteredData, false, this);
+			PatientListAdapter adapter = new PatientListAdapter(filteredData, this);
 			recyclerView.setAdapter(adapter);
 		}
 	}

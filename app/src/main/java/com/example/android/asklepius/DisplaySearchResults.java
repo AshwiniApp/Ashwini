@@ -46,7 +46,7 @@ public class DisplaySearchResults extends AppCompatActivity {
 					.show();
 		} else {
 			recyclerView.setLayoutManager(new LinearLayoutManager(this));
-			PatientListAdapter adapter = new PatientListAdapter(filteredList, true, this);
+			PatientListAdapter adapter = new PatientListAdapter(filteredList);
 			recyclerView.setAdapter(adapter);
 		}
 	}
