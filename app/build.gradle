@@ -11,8 +11,8 @@ android {
         applicationId "com.example.android.asklepius"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 17
-        versionName "v0.4.1"
+        versionCode 18
+        versionName "v0.4.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
