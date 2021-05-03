@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loading_screen);
+        getSupportActionBar().hide();
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivityForResult(intent, LOGIN_ACTIVITY_REQUEST_CODE);
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_delete_user: {
                 String currentUserID = FirebaseAuth.getInstance().getUid();
+                userDB.removeEventListener(userChangeListener);
                 FirebaseStorage.getInstance().getReference().child("images/" + currentUserID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -86,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
                                         break;
                                     }
                                 }
-
-                                userDB.removeEventListener(userChangeListener);
                                 userDB.child(key[0]).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
      * Loads the MainActivity UI
      */
     private void setContentToMain() {
+        getSupportActionBar().show();
         setContentView(R.layout.activity_main);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), NewPatient.class)));

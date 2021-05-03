@@ -208,6 +208,12 @@ public class UserValidationUpload extends AppCompatActivity {
                 setResult(RESULT_CANCELED);
                 finish();
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
         });
     }
 
