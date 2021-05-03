@@ -3,13 +3,20 @@ package com.example.android.asklepius;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     List<User> users = Values.users;
     DatabaseReference patientDB;
     DatabaseReference userDB;
+    private ValueEventListener userChangeListener;
+    private static final int RC_VALIDATION = 743;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +48,67 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivityForResult(intent, LOGIN_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main_app_bar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sign_out: {
+                AuthUI.getInstance().signOut(this)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(MainActivity.this, "You've been successfully signed out!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        });
+                break;
+            }
+
+            case R.id.action_delete_user: {
+                String currentUserID = FirebaseAuth.getInstance().getUid();
+                FirebaseStorage.getInstance().getReference().child("images/" + currentUserID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        final String[] key = {""};
+                        userDB.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                for (DataSnapshot childSnapshot : task.getResult().getChildren()) {
+                                    if (childSnapshot.getValue(User.class).userID.equals(currentUserID)) {
+                                        key[0] = childSnapshot.getKey();
+                                        break;
+                                    }
+                                }
+
+                                userDB.removeEventListener(userChangeListener);
+                                userDB.child(key[0]).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        AuthUI.getInstance().delete(MainActivity.this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Toast.makeText(MainActivity.this, "User successfully deleted!", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+                break;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -101,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeUserDB() {
         userDB = FirebaseDatabase.getInstance().getReference().child("users");
 
-        ValueEventListener userChangeListener = new ValueEventListener() {
+        userChangeListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user;
@@ -120,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                         // the UserValidationActivity will handle the null value
                         Intent intent = new Intent(MainActivity.this, UserValidationUpload.class);
                         UserValidationUpload.user = user;
-                        startActivity(intent);
+                        startActivityForResult(intent, RC_VALIDATION);
                     } else if (user.status.equals(Values.userVerificationState.Pending.toString())) {
                         // Snippet is run if the validation is pending, in which case all actions are disabled.
                         setContentToMain();
@@ -161,6 +232,12 @@ public class MainActivity extends AppCompatActivity {
             } else if (resultCode == RESULT_OK) {
                 initializePatientDB();
                 initializeUserDB();
+            }
+        }
+
+        if (requestCode == RC_VALIDATION) {
+            if (resultCode == RESULT_CANCELED) {
+                finish();
             }
         }
     }
