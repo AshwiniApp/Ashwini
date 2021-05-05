@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.AuthUI;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
@@ -17,10 +18,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 605;
     // Choose authentication providers
-    List<AuthUI.IdpConfig> providers = Arrays.asList(
-            new AuthUI.IdpConfig.GoogleBuilder().build(),
-            new AuthUI.IdpConfig.FacebookBuilder().build(),
-            new AuthUI.IdpConfig.TwitterBuilder().build());
+    List<AuthUI.IdpConfig> providers = Collections.singletonList(
+            new AuthUI.IdpConfig.GoogleBuilder().build());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
