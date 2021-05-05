@@ -1,4 +1,4 @@
-package com.example.android.asklepius;
+package org.core.asklepius;
 
 import android.content.Intent;
 import android.util.Log;
@@ -15,8 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -69,32 +67,15 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
         String key = Values.patients.get(patient);
         Log.d(TAG, "onClick: Patient DATA: " + patient);
         Log.d(TAG, "onClick: Patient KEY: " + key);
-        Values.patientDB.child(key).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Snackbar.make(activityContext.binding.recylerViewUploadedPatientData, "Patient Deleted", Snackbar.LENGTH_SHORT)
-                        .setAction("Undo", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Values.patientDB.child(key).setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        patientsDataset.add(position, patient);
-                                        currentContext.notifyItemInserted(position);
-                                        currentContext.notifyItemRangeChanged(position, patientsDataset.size());
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(activityContext, "Could Not Restore The Deleted Patient!", Toast.LENGTH_SHORT).show();
-                                        Log.d(TAG, "onFailure: Could not restore: " + e.toString());
-                                    }
-                                });
-
-                            }
-                        }).show();
-            }
-        });
+        Values.patientDB.child(key).removeValue().addOnSuccessListener(aVoid -> Snackbar.make(activityContext.binding.recylerViewUploadedPatientData, "Patient Deleted", Snackbar.LENGTH_SHORT)
+                .setAction("Undo", v -> Values.patientDB.child(key).setValue(patient).addOnSuccessListener(aVoid1 -> {
+                    patientsDataset.add(position, patient);
+                    currentContext.notifyItemInserted(position);
+                    currentContext.notifyItemRangeChanged(position, patientsDataset.size());
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(activityContext, "Could Not Restore The Deleted Patient!", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onFailure: Could not restore: " + e.toString());
+                })).show());
 
         patientsDataset.remove(position);
         currentContext.notifyItemRemoved(position);

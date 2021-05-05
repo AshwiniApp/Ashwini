@@ -1,4 +1,4 @@
-package com.example.android.asklepius;
+package org.core.asklepius;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,19 +8,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,9 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,13 +30,13 @@ import java.io.IOException;
 public class UserValidationUpload extends AppCompatActivity {
 
     private static final String TAG = "UserValidationUpload";
+    private static final int REQUEST_IMAGE_CAPTURE = 887;
+    private static final int PICK_IMAGE = 313;
+    public static User user;
     private File imageFile;
     private String imageURL;
     private Uri imageUri;
     private StorageReference storage;
-    private static final int REQUEST_IMAGE_CAPTURE = 887;
-    public static User user;
-    private static final int PICK_IMAGE = 313;
     private Snackbar uploadingSnackBar;
 
     @SuppressLint("SetTextI18n")
@@ -99,7 +91,7 @@ public class UserValidationUpload extends AppCompatActivity {
 
     /**
      * @return a new File object created for storing the returned data from the Camera API
-     *         after an image capture.
+     * after an image capture.
      */
     private File createImageFile() {
         String imageFileName = "JPEG_" + FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -127,7 +119,7 @@ public class UserValidationUpload extends AppCompatActivity {
      * successfully uploaded, a SnackBar and ProgressBar help the user ascertain the upload progress.
      * When the file is uploaded, a download URL is obtained and the submit button is enabled.
      * A error is displayed if the upload fails for some reason
-     *
+     * <p>
      * Note: The uploaded file is completely uncompressed to account for improper angles.
      */
     private void uploadImage() {
@@ -136,40 +128,25 @@ public class UserValidationUpload extends AppCompatActivity {
         LinearProgressIndicator progressBar = findViewById(R.id.progressBar_upload_status);
         progressBar.setVisibility(View.VISIBLE);
 
-        imageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(UserValidationUpload.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onSuccess: Image uploaded");
-                uploadingSnackBar.dismiss();
-                ((Button) findViewById(R.id.button_submit_validation_info)).setEnabled(true);
-                try {
-                    imageFile.delete();
-                } catch (NullPointerException e) {
-                    // DO nothing, the file's been selected from the gallery
-                }
+        imageReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            Toast.makeText(UserValidationUpload.this, "Image uploaded!", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onSuccess: Image uploaded");
+            uploadingSnackBar.dismiss();
+            findViewById(R.id.button_submit_validation_info).setEnabled(true);
+            try {
+                imageFile.delete();
+            } catch (NullPointerException e) {
+                // DO nothing, the file's been selected from the gallery
+            }
 
-                imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        imageURL = uri.toString();
-                    }
-
-                });
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                progressBar.setProgress((int) progress);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UserValidationUpload.this, "The image failed to upload!", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onFailure: Image failed to upload. The following exception occurred: " );
-                e.printStackTrace();
-            }
+            imageReference.getDownloadUrl().addOnSuccessListener(uri -> imageURL = uri.toString());
+        }).addOnProgressListener(snapshot -> {
+            double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+            progressBar.setProgress((int) progress);
+        }).addOnFailureListener(e -> {
+            Toast.makeText(UserValidationUpload.this, "The image failed to upload!", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onFailure: Image failed to upload. The following exception occurred: ");
+            e.printStackTrace();
         });
 
     }
@@ -184,14 +161,14 @@ public class UserValidationUpload extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            uploadingSnackBar = Snackbar.make(((Button) findViewById(R.id.button_submit_validation_info)), "Uploading Image", Snackbar.LENGTH_INDEFINITE);
+            uploadingSnackBar = Snackbar.make(findViewById(R.id.button_submit_validation_info), "Uploading Image", Snackbar.LENGTH_INDEFINITE);
             uploadingSnackBar.show();
             uploadImage();
         }
 
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
-            uploadingSnackBar = Snackbar.make(((Button) findViewById(R.id.button_submit_validation_info)), "Uploading Image", Snackbar.LENGTH_INDEFINITE);
+            uploadingSnackBar = Snackbar.make(findViewById(R.id.button_submit_validation_info), "Uploading Image", Snackbar.LENGTH_INDEFINITE);
             uploadingSnackBar.show();
             uploadImage();
         }
@@ -202,25 +179,19 @@ public class UserValidationUpload extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        storage.child("images/" + FirebaseAuth.getInstance().getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                setResult(RESULT_CANCELED);
-                finish();
-            }
+        storage.child("images/" + FirebaseAuth.getInstance().getUid()).delete().addOnSuccessListener(aVoid -> {
+            setResult(RESULT_CANCELED);
+            finish();
+        }).addOnFailureListener(e -> {
+            setResult(RESULT_CANCELED);
+            finish();
         });
     }
 
     /**
      * This button is enabled when the image upload is successfully completed. If the user is new,
      * that is there is no presence in the database, and a new child is created and the user object is pushed.
-     *
+     * <p>
      * If the user already exists in the database, the complete list of users is fetched from the database once,
      * and the existing used object at the matching key is replace by a new one. The image is simply replaced at
      * the same ID, so there is no duplication.
@@ -237,37 +208,23 @@ public class UserValidationUpload extends AppCompatActivity {
             User user = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
                     FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
             DatabaseReference userDB = Values.userDB;
-            userDB.push().setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
-                    setResult(RESULT_OK);
-                    finish();
-                }
+            userDB.push().setValue(user).addOnSuccessListener(aVoid -> {
+                Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
+                finish();
             });
         } else {
-            Values.userDB.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DataSnapshot> task) {
-                    for (DataSnapshot childrenSnapshot : task.getResult().getChildren()) {
-                        if (childrenSnapshot.getValue(User.class).equals(user)) {
-                            User newUser = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
-                                    FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                            String key = childrenSnapshot.getKey();
-                            Values.userDB.child(key).setValue(newUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
-                                    setResult(RESULT_OK);
-                                    finish();
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.toString());
-                                }
-                            });
-                        }
+            Values.userDB.get().addOnCompleteListener(task -> {
+                for (DataSnapshot childrenSnapshot : task.getResult().getChildren()) {
+                    if (childrenSnapshot.getValue(User.class).equals(user)) {
+                        User newUser = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
+                                FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                        String key = childrenSnapshot.getKey();
+                        Values.userDB.child(key).setValue(newUser).addOnSuccessListener(aVoid -> {
+                            Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
+                            setResult(RESULT_OK);
+                            finish();
+                        }).addOnFailureListener(e -> Log.d(TAG, "onFailure: " + e.toString()));
                     }
                 }
             });

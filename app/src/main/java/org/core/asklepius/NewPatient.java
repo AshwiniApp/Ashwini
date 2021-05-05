@@ -1,4 +1,4 @@
-package com.example.android.asklepius;
+package org.core.asklepius;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,15 +17,14 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.android.asklepius.databinding.ActivityNewPatientBinding;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+
+import org.core.asklepius.databinding.ActivityNewPatientBinding;
 
 public class NewPatient extends AppCompatActivity {
 
@@ -55,18 +54,17 @@ public class NewPatient extends AppCompatActivity {
         progressBar.setVisibility(View.INVISIBLE);
         patientDB = Values.patientDB;
 
-		patient = new Patient();
-		patient.setInitial();
-		setSliderTags();
+        patient = new Patient();
+        patient.setInitial();
+        setSliderTags();
 
         // Check for editMode
-		oldPatientData = (Patient) getIntent().getSerializableExtra("edit");
-		key = getIntent().getStringExtra("editKey");
-		if (oldPatientData != null) {
-			editMode = true;
-			setEditModePresets();
-		}
-
+        oldPatientData = (Patient) getIntent().getSerializableExtra("edit");
+        key = getIntent().getStringExtra("editKey");
+        if (oldPatientData != null) {
+            editMode = true;
+            setEditModePresets();
+        }
 
 
         inflateSymptomChips();
@@ -98,7 +96,7 @@ public class NewPatient extends AppCompatActivity {
         binding.sliderSymptomSeverity.setValue(Values.getKeyByValue(Values.intensity, oldPatientData.symptomsSeverity));
         patient.setSymptomsSeverity(oldPatientData.symptomsSeverity);
         binding.sliderPatientCondition.setValue(Values.getKeyByValue(Values.intensity, oldPatientData.condition));
-		patient.setCondition(oldPatientData.condition);
+        patient.setCondition(oldPatientData.condition);
 
         binding.textFieldTreatmentPlan.getEditText().setText(oldPatientData.treatmentPlan);
         binding.textFieldPeriodOfTreatment.getEditText().setText(oldPatientData.periodOfTreatment);
@@ -199,8 +197,8 @@ public class NewPatient extends AppCompatActivity {
             case R.id.radioButton_sex_other:
                 otherSexInput.setEnabled(true);
                 if (!editMode) {
-					otherSexInput.requestFocus();
-				}
+                    otherSexInput.requestFocus();
+                }
                 break;
         }
     }
@@ -306,28 +304,22 @@ public class NewPatient extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
             return;
         }
-		patient.setDoctorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        patient.setDoctorID(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         if (editMode) {
-			patientDB.child(key).setValue(patient).addOnSuccessListener(new OnSuccessListener<Void>() {
-				@Override
-				public void onSuccess(Void aVoid) {
-					Log.d(TAG, "uploadData onSuccess Edit: Data edit uploaded to firebase");
-					Toast.makeText(NewPatient.this, "Patient Data Successfully Edited", Toast.LENGTH_SHORT).show();
-					progressBar.setVisibility(View.INVISIBLE);
-					setResult(RESULT_OK);
-					finish();
-				}
-			}).addOnFailureListener(new OnFailureListener() {
-				@Override
-				public void onFailure(@NonNull Exception e) {
-					Log.d(TAG, "uploadData onFailure: Data Edit Upload Failed!");
-					Toast.makeText(NewPatient.this, "Patient Data Edit Failed! Please check your network!", Toast.LENGTH_SHORT).show();
-					progressBar.setVisibility(View.INVISIBLE);
-					setResult(RESULT_CANCELED);
-					finish();
-				}
-			});
+            patientDB.child(key).setValue(patient).addOnSuccessListener(aVoid -> {
+                Log.d(TAG, "uploadData onSuccess Edit: Data edit uploaded to firebase");
+                Toast.makeText(NewPatient.this, "Patient Data Successfully Edited", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
+                setResult(RESULT_OK);
+                finish();
+            }).addOnFailureListener(e -> {
+                Log.d(TAG, "uploadData onFailure: Data Edit Upload Failed!");
+                Toast.makeText(NewPatient.this, "Patient Data Edit Failed! Please check your network!", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
+                setResult(RESULT_CANCELED);
+                finish();
+            });
         } else {
             patientDB.push().setValue(patient).addOnSuccessListener(aVoid -> {
                 Log.d(TAG, "uploadData onSuccess: Data successfully uploaded to firebase");
@@ -335,11 +327,11 @@ public class NewPatient extends AppCompatActivity {
                 progressBar.setVisibility(View.INVISIBLE);
                 finish();
             }).addOnFailureListener(e -> {
-                        Log.d(TAG, "uploadData onFailure: Data Upload Failed!");
-                        Toast.makeText(NewPatient.this, "Patient Data Addition Failed! Please check your network!", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.INVISIBLE);
-                        finish();
-                    });
+                Log.d(TAG, "uploadData onFailure: Data Upload Failed!");
+                Toast.makeText(NewPatient.this, "Patient Data Addition Failed! Please check your network!", Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
+                finish();
+            });
         }
 
 
@@ -360,8 +352,8 @@ public class NewPatient extends AppCompatActivity {
             case R.id.radioButton_comorbidity_yes:
                 comorbidityDescription.setEnabled(true);
                 if (!editMode) {
-					comorbidityDescription.requestFocus();
-				}
+                    comorbidityDescription.requestFocus();
+                }
                 break;
         }
     }

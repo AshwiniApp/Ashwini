@@ -1,4 +1,4 @@
-package com.example.android.asklepius;
+package org.core.asklepius;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,12 +31,12 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private static final int LOGIN_ACTIVITY_REQUEST_CODE = 262;
+    private static final int RC_VALIDATION = 743;
     Map<Patient, String> patients = Values.patients;
     List<User> users = Values.users;
     DatabaseReference patientDB;
     DatabaseReference userDB;
     private ValueEventListener userChangeListener;
-    private static final int RC_VALIDATION = 743;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +59,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_sign_out: {
                 AuthUI.getInstance().signOut(this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(MainActivity.this, "You've been successfully signed out!", Toast.LENGTH_SHORT).show();
-                                finish();
-                            }
+                        .addOnCompleteListener(task -> {
+                            Toast.makeText(MainActivity.this, "You've been successfully signed out!", Toast.LENGTH_SHORT).show();
+                            finish();
                         });
                 break;
             }
@@ -75,34 +69,20 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_delete_user: {
                 String currentUserID = FirebaseAuth.getInstance().getUid();
                 userDB.removeEventListener(userChangeListener);
-                FirebaseStorage.getInstance().getReference().child("images/" + currentUserID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        final String[] key = {""};
-                        userDB.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                                for (DataSnapshot childSnapshot : task.getResult().getChildren()) {
-                                    if (childSnapshot.getValue(User.class).userID.equals(currentUserID)) {
-                                        key[0] = childSnapshot.getKey();
-                                        break;
-                                    }
-                                }
-                                userDB.child(key[0]).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        AuthUI.getInstance().delete(MainActivity.this).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                Toast.makeText(MainActivity.this, "User successfully deleted!", Toast.LENGTH_SHORT).show();
-                                                finish();
-                                            }
-                                        });
-                                    }
-                                });
+                FirebaseStorage.getInstance().getReference().child("images/" + currentUserID).delete().addOnSuccessListener(aVoid -> {
+                    final String[] key = {""};
+                    userDB.get().addOnCompleteListener(task -> {
+                        for (DataSnapshot childSnapshot : task.getResult().getChildren()) {
+                            if (childSnapshot.getValue(User.class).userID.equals(currentUserID)) {
+                                key[0] = childSnapshot.getKey();
+                                break;
                             }
-                        });
-                    }
+                        }
+                        userDB.child(key[0]).removeValue().addOnSuccessListener(aVoid1 -> AuthUI.getInstance().delete(MainActivity.this).addOnCompleteListener(task1 -> {
+                            Toast.makeText(MainActivity.this, "User successfully deleted!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }));
+                    });
                 });
                 break;
             }
@@ -121,10 +101,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), NewPatient.class)));
     }
 
-	/**
-	 * Initializes the patient database reference and attaches listeners
-	 */
-	private void initializePatientDB() {
+    /**
+     * Initializes the patient database reference and attaches listeners
+     */
+    private void initializePatientDB() {
         patientDB = FirebaseDatabase.getInstance().getReference().child("patients");
 
         // Attaching a ValueEventListener is better, since upon any changes, the entire list is

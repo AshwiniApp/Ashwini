@@ -1,4 +1,4 @@
-package com.example.android.asklepius;
+package org.core.asklepius;
 
 import java.util.Objects;
 
