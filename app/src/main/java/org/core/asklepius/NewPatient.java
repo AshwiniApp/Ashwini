@@ -265,8 +265,6 @@ public class NewPatient extends AppCompatActivity {
             errorScrollToView("Please specify at least one symptom!", R.id.textView_patient_symptoms);
         }
 
-        checkTextInputField(R.id.textField_patient_age, "age", "Please specify the patient's age!");
-
         // Checks for empty response in sex specification
         // The code section was small enough to not require a refactor
         EditText otherSexInputEditText = binding.editTextPatientSexOther;
@@ -282,6 +280,8 @@ public class NewPatient extends AppCompatActivity {
                 patient.setSex(otherSexInput);
             }
         }
+
+        checkTextInputField(R.id.textField_patient_age, "age", "Please specify the patient's age!");
 
         checkTextInputField(R.id.textField_patient_name, "name", "Please specify the patient's name!");
 
