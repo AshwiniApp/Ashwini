@@ -1,8 +1,7 @@
 package org.core.asklepius;
 
 import com.google.firebase.database.IgnoreExtraProperties;
-
-import org.jetbrains.annotations.NotNull;
+import com.google.firebase.database.annotations.NotNull;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
