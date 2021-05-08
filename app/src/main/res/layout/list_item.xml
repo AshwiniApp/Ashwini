@@ -1,87 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4dp"
-    app:cardCornerRadius="1dp"
-    app:cardElevation="8dp">
+    android:layout_margin="8dp"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp"
+    app:contentPadding="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView_patient_name_display"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/patient_s_name"
-            app:layout_constraintBottom_toTopOf="@+id/textView_patient_age_display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            android:text="@string/patient_s_name" />
 
         <TextView
             android:id="@+id/textView_patient_age_display"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/patient_s_age"
-            app:layout_constraintBottom_toTopOf="@+id/textView_patient_sex_display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_patient_name_display" />
+            android:text="@string/patient_s_age" />
 
         <TextView
             android:id="@+id/textView_patient_sex_display"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/patient_s_sex"
-            app:layout_constraintBottom_toTopOf="@+id/textView_patient_symptoms_display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_patient_age_display" />
+            android:text="@string/patient_s_sex" />
 
         <TextView
             android:id="@+id/textView_patient_symptoms_display"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/symptoms_shown"
-            app:layout_constraintBottom_toTopOf="@+id/textView_comorbidities_display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_patient_sex_display" />
+            android:text="@string/symptoms_shown" />
 
         <TextView
             android:id="@+id/textView_comorbidities_display"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/comorbidties"
-            app:layout_constraintBottom_toTopOf="@+id/textView_symptom_severity_display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_patient_symptoms_display" />
+            android:text="@string/comorbidties" />
 
         <TextView
             android:id="@+id/textView_symptom_severity_display"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/severity_of_symptoms"
-            app:layout_constraintBottom_toTopOf="@+id/textView_patient_condition_display"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_comorbidities_display" />
+            android:text="@string/severity_of_symptoms" />
 
         <TextView
             android:id="@+id/textView_patient_condition_display"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/condition_of_the_patient"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_symptom_severity_display" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.google.android.material.card.MaterialCardView>
+            android:text="@string/condition_of_the_patient" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
