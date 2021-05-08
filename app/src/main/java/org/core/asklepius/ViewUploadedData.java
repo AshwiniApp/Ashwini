@@ -40,7 +40,7 @@ public class ViewUploadedData extends AppCompatActivity {
                     .show();
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            PatientListAdapter adapter = new PatientListAdapter(filteredData, this);
+            PatientListAdapter adapter = new PatientListAdapter(filteredData, ViewUploadedData.this, false);
             recyclerView.setAdapter(adapter);
         }
     }

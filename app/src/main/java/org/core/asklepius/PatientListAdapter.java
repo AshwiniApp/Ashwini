@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -26,22 +27,17 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
     private static final int VIEW_PATIENT = 133;
     private static final int EDIT_PATIENT = 132;
     private static final int DELETE_PATIENT = 527;
-    static ViewUploadedData activityContext;
+    static AppCompatActivity activityContext;
     static PatientListAdapter currentContext;
     private static List<Patient> patientsDataset;
     private static boolean searchMode;
 
-    public PatientListAdapter(List<Patient> patients) {
-        patientsDataset = patients;
-        searchMode = true;
-        currentContext = this;
-    }
 
-
-    public PatientListAdapter(List<Patient> patients, ViewUploadedData activityContextParam) {
+    public PatientListAdapter(List<Patient> patients, AppCompatActivity activityContextParam, boolean searchMode) {
         patientsDataset = patients;
         activityContext = activityContextParam;
         currentContext = this;
+        PatientListAdapter.searchMode = searchMode;
     }
 
     private static void viewPatient(int position) {
@@ -67,7 +63,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
         String key = Values.patients.get(patient);
         Log.d(TAG, "onClick: Patient DATA: " + patient);
         Log.d(TAG, "onClick: Patient KEY: " + key);
-        Values.patientDB.child(key).removeValue().addOnSuccessListener(aVoid -> Snackbar.make(activityContext.binding.recylerViewUploadedPatientData, "Patient Deleted", Snackbar.LENGTH_SHORT)
+        Values.patientDB.child(key).removeValue().addOnSuccessListener(aVoid -> Snackbar.make(((ViewUploadedData) activityContext).binding.recylerViewUploadedPatientData, "Patient Deleted", Snackbar.LENGTH_SHORT)
                 .setAction("Undo", v -> Values.patientDB.child(key).setValue(patient).addOnSuccessListener(aVoid1 -> {
                     patientsDataset.add(position, patient);
                     currentContext.notifyItemInserted(position);
@@ -197,42 +193,33 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
             patientSymptomSeverityTextView = itemView.findViewById(R.id.textView_symptom_severity_display);
             patientConditionTextView = itemView.findViewById(R.id.textView_patient_condition_display);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // Trigger Complete Detail Display Activity
-                    viewPatient(getAdapterPosition());
-                }
+            itemView.setOnClickListener(view -> {
+                // Trigger Complete Detail Display Activity
+                viewPatient(getAdapterPosition());
             });
 
             if (!searchMode) {
-                itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
+                itemView.setOnLongClickListener(v -> {
 
-                        itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
-                            @Override
-                            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                                MenuItem view = menu.add(Menu.NONE, VIEW_PATIENT, 1, "View");
-                                MenuItem edit = menu.add(Menu.NONE, EDIT_PATIENT, 2, "Edit");
-                                MenuItem delete = menu.add(Menu.NONE, DELETE_PATIENT, 3, "Delete");
-                                view.setOnMenuItemClickListener(item -> {
-                                    viewPatient(getAdapterPosition());
-                                    return false;
-                                });
-                                edit.setOnMenuItemClickListener(item -> {
-                                    editPatient(getAdapterPosition());
-                                    return false;
-                                });
-                                delete.setOnMenuItemClickListener(item -> {
-                                    deletePatient(getAdapterPosition());
-                                    return false;
-                                });
-                            }
+                    itemView.setOnCreateContextMenuListener((menu, v1, menuInfo) -> {
+                        MenuItem view = menu.add(Menu.NONE, VIEW_PATIENT, 1, "View");
+                        MenuItem edit = menu.add(Menu.NONE, EDIT_PATIENT, 2, "Edit");
+                        MenuItem delete = menu.add(Menu.NONE, DELETE_PATIENT, 3, "Delete");
+                        view.setOnMenuItemClickListener(item -> {
+                            viewPatient(getAdapterPosition());
+                            return false;
                         });
+                        edit.setOnMenuItemClickListener(item -> {
+                            editPatient(getAdapterPosition());
+                            return false;
+                        });
+                        delete.setOnMenuItemClickListener(item -> {
+                            deletePatient(getAdapterPosition());
+                            return false;
+                        });
+                    });
 
-                        return false;
-                    }
+                    return false;
                 });
             }
         }

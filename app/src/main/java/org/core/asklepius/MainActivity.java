@@ -1,5 +1,6 @@
 package org.core.asklepius;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -67,23 +69,32 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case R.id.action_delete_user: {
-                String currentUserID = FirebaseAuth.getInstance().getUid();
-                userDB.removeEventListener(userChangeListener);
-                FirebaseStorage.getInstance().getReference().child("images/" + currentUserID).delete().addOnSuccessListener(aVoid -> {
-                    final String[] key = {""};
-                    userDB.get().addOnCompleteListener(task -> {
-                        for (DataSnapshot childSnapshot : task.getResult().getChildren()) {
-                            if (childSnapshot.getValue(User.class).userID.equals(currentUserID)) {
-                                key[0] = childSnapshot.getKey();
-                                break;
-                            }
-                        }
-                        userDB.child(key[0]).removeValue().addOnSuccessListener(aVoid1 -> AuthUI.getInstance().delete(MainActivity.this).addOnCompleteListener(task1 -> {
-                            Toast.makeText(MainActivity.this, "User successfully deleted!", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }));
-                    });
-                });
+                new MaterialAlertDialogBuilder(MainActivity.this)
+                        .setTitle("Are you sure?")
+                        .setMessage("If you delete your account, you'll lose access to all your data!")
+                        .setPositiveButton("Delete", (dialog, which) -> {
+                            setContentView(R.layout.loading_screen);
+                            getSupportActionBar().hide();
+                            String currentUserID = FirebaseAuth.getInstance().getUid();
+                            userDB.removeEventListener(userChangeListener);
+                            FirebaseStorage.getInstance().getReference().child("images/" + currentUserID).delete().addOnSuccessListener(aVoid -> {
+                                final String[] key = {""};
+                                userDB.get().addOnCompleteListener(task -> {
+                                    for (DataSnapshot childSnapshot : task.getResult().getChildren()) {
+                                        if (childSnapshot.getValue(User.class).userID.equals(currentUserID)) {
+                                            key[0] = childSnapshot.getKey();
+                                            break;
+                                        }
+                                    }
+                                    userDB.child(key[0]).removeValue().addOnSuccessListener(aVoid1 -> AuthUI.getInstance().delete(MainActivity.this).addOnCompleteListener(task1 -> {
+                                        Toast.makeText(MainActivity.this, "User successfully deleted!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }));
+                                });
+                            });
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> Toast.makeText(MainActivity.this, "Deletion Canceled!", Toast.LENGTH_SHORT).show())
+                        .show();
                 break;
             }
         }

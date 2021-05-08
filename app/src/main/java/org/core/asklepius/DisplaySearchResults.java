@@ -42,7 +42,7 @@ public class DisplaySearchResults extends AppCompatActivity {
                     .show();
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            PatientListAdapter adapter = new PatientListAdapter(filteredList);
+            PatientListAdapter adapter = new PatientListAdapter(filteredList, DisplaySearchResults.this, true);
             recyclerView.setAdapter(adapter);
         }
     }
