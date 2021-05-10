@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
+        android:paddingStart="@dimen/standard"
+        android:paddingEnd="@dimen/standard">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:padding="@dimen/standard"
             android:text="@string/means_required"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#C81414" />
@@ -64,8 +64,8 @@
             android:id="@+id/textView_patient_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/standard"
+            android:paddingBottom="@dimen/standard"
             android:text="@string/patient_s_sex"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -130,8 +130,8 @@
             android:id="@+id/textView_patient_symptoms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/standard"
+            android:paddingBottom="@dimen/standard"
             android:text="@string/symptoms_shown"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -243,8 +243,8 @@
             android:id="@+id/textView_comorbidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/standard"
+            android:paddingBottom="@dimen/standard"
             android:text="@string/comorbidties"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -296,8 +296,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/standard"
+            android:paddingBottom="@dimen/standard"
             android:text="@string/severity_of_symptoms"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -313,8 +313,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="@dimen/standard"
+            android:paddingBottom="@dimen/standard"
             android:text="@string/condition_of_the_patient"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -338,7 +338,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/treatment_plan_followed_by_the_doctor"
-            android:paddingTop="8dp"
+            android:paddingTop="@dimen/standard"
             app:errorEnabled="true"
             app:hintEnabled="true">
 
