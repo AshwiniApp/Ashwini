@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:id="@+id/scrollView" xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -77,6 +77,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_patient_age"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/patient_s_age"
@@ -106,96 +107,96 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_fever"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_fever" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_fever"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_fever" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_fatigue"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_fatigue" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_fatigue"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_fatigue" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_dry_cough"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_dry_cough" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_dry_cough"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_dry_cough" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_aches_and_pains"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_aches_and_pains" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_aches_and_pains"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_aches_and_pains" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_sore_throat"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_sore_throat" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_sore_throat"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_sore_throat" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_nasal_congestion"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_nasal_congestion" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_nasal_congestion"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_nasal_congestion" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_runny_nose"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_runny_nose" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_runny_nose"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_runny_nose" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_diarrhoea"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_diarrhoea" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_diarrhoea"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_diarrhoea" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_anosmia"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_anosmia" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_anosmia"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_anosmia" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_rash"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_rash" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_rash"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_rash" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_conjunctivitis"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_conjunctivitis" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_conjunctivitis"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_conjunctivitis" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_headache"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_headache" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_headache"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_headache" />-->
 
-<!--            <com.google.android.material.chip.Chip-->
-<!--                android:id="@+id/chip_asymptomatic"-->
-<!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/symptom_asymptomatic" />-->
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_asymptomatic"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_asymptomatic" />-->
         </com.google.android.material.chip.ChipGroup>
 
         <TextView
@@ -264,17 +265,17 @@
             android:id="@+id/button_search_patient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:onClick="onSearchButtonClicked"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
-            android:layout_gravity="center_horizontal"/>
+            android:onClick="onSearchButtonClicked"
+            android:text="@string/search" />
 
         <ProgressBar
             android:id="@+id/progressBar_search_patient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminate="true"/>
+            android:indeterminate="true" />
 
     </LinearLayout>
 

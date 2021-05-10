@@ -24,6 +24,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_patient_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/patient_s_name"
@@ -39,6 +40,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_patient_age"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/patient_s_age"
@@ -350,6 +352,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_period_of_treatment"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/period_of_treatment"
@@ -365,6 +368,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_method_of_treatment_administration"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/method_of_administration_of_treatment"
@@ -380,6 +384,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_frequency_of_administration_per_day"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/frequency_of_administration_per_day"
@@ -395,6 +400,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_frequency_of_administration_per_week"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/frequency_of_administration_per_week"
@@ -442,6 +448,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_source_of_infection"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/source_of_infection"
@@ -457,6 +464,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_patient_infectivity"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/patient_infectivity"
