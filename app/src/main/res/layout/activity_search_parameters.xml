@@ -37,11 +37,30 @@
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textField_patient_age"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard"
+            android:layout_marginEnd="@dimen/standard"
+            android:layout_marginTop="@dimen/standard"
+            android:hint="@string/patient_s_age"
+            app:errorEnabled="true"
+            app:hintEnabled="true">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="@string/patient_s_age"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/textView_patient_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:paddingStart="8dp"
             android:text="@string/patient_s_sex"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -49,8 +68,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="8dp">
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radioButton_sex_male"
@@ -75,28 +93,18 @@
                 android:text="@string/other_without_colon" />
         </RadioGroup>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textField_patient_age"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <View
+            android:id="@+id/divider6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/patient_s_age"
-            android:padding="8dp"
-            app:errorEnabled="true"
-            app:hintEnabled="true">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autofillHints="@string/patient_s_age"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/textView_patient_symptoms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="@dimen/standard"
+            android:layout_marginTop="@dimen/standard"
             android:text="@string/symptoms_shown"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -199,6 +207,12 @@
             <!--                android:text="@string/symptom_asymptomatic" />-->
         </com.google.android.material.chip.ChipGroup>
 
+        <View
+            android:id="@+id/divider9"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
         <TextView
             android:id="@+id/textView_comorbidity"
             android:layout_width="wrap_content"
@@ -232,7 +246,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginStart="@dimen/standard"
+            android:layout_marginTop="@dimen/standard"
             android:text="@string/severity_of_symptoms"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
@@ -248,7 +263,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginStart="@dimen/standard"
+            android:layout_marginTop="@dimen/standard"
             android:text="@string/condition_of_the_patient"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold" />
