@@ -14,5 +14,10 @@
         android:icon="@drawable/ic_baseline_delete_forever_24"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_send_feedback"
+        android:title="Send Feedback"
+        android:icon="@drawable/ic_baseline_feedback_24"
+        app:showAsAction="never" />
 
 </menu>

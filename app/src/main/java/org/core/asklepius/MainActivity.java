@@ -2,6 +2,7 @@ package org.core.asklepius;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -95,6 +96,28 @@ public class MainActivity extends AppCompatActivity {
                         })
                         .setNegativeButton("Cancel", (dialog, which) -> Toast.makeText(MainActivity.this, "Deletion Canceled!", Toast.LENGTH_SHORT).show())
                         .show();
+                break;
+            }
+
+            case R.id.action_send_feedback: {
+                new MaterialAlertDialogBuilder(this)
+                        .setTitle("Provide feedback using:")
+                        .setItems(new String[]{"GitHub", "Email"}, (dialog, which) -> {
+                            if (which == 0) {
+                                Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/sanskar10100/Asklepius/issues/new"));
+                                if (githubIntent.resolveActivity(getPackageManager()) != null) {
+                                    startActivity(githubIntent);
+                                }
+                            } else {
+                                Intent feedbackMailIntent = new Intent(Intent.ACTION_SENDTO);
+                                feedbackMailIntent.setData(Uri.parse("mailto:"));
+                                feedbackMailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"sanskar10100@gmail.com"});
+                                feedbackMailIntent.putExtra(Intent.EXTRA_SUBJECT, "Asklepius Feedback");
+                                if (feedbackMailIntent.resolveActivity(getPackageManager()) != null) {
+                                    startActivity(feedbackMailIntent);
+                                }
+                            }
+                        }).create().show();
                 break;
             }
         }
