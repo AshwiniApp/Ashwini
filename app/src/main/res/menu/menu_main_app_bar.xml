@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_switch_theme"
+        android:title="Switch Theme"
+        android:icon="@drawable/ic_baseline_theme_switch_24"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/action_sign_out"
         android:title="Sign Out"
         android:icon="@drawable/ic_baseline_sign_out_24"

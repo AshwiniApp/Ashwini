@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -48,8 +50,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.loading_screen);
         getSupportActionBar().hide();
 
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivityForResult(intent, LOGIN_ACTIVITY_REQUEST_CODE);
+        if (savedInstanceState == null || !savedInstanceState.getBoolean("LOGGED_IN")) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivityForResult(intent, LOGIN_ACTIVITY_REQUEST_CODE);
+        } else {
+            initializePatientDB();
+            initializeUserDB();
+        }
     }
 
     @Override
@@ -61,6 +68,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_switch_theme: {
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                break;
+            }
+
             case R.id.action_sign_out: {
                 AuthUI.getInstance().signOut(this)
                         .addOnCompleteListener(task -> {
@@ -275,5 +291,11 @@ public class MainActivity extends AppCompatActivity {
     public void onSearchPatientDataButtonClicked(View view) {
         Intent intent = new Intent(this, SearchParameters.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("LOGGED_IN", true);
     }
 }
