@@ -4,26 +4,32 @@
 
     <item
         android:id="@+id/action_switch_theme"
-        android:title="Switch Theme"
         android:icon="@drawable/ic_baseline_theme_switch_24"
-        app:showAsAction="ifRoom"/>
+        android:title="Switch Theme"
+        app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_sign_out"
-        android:title="Sign Out"
-        android:icon="@drawable/ic_baseline_sign_out_24"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_baseline_more_vert_24"
+        android:title=""
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_sign_out"
+                android:icon="@drawable/ic_baseline_sign_out_24"
+                android:title="Sign Out"
+                app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_delete_user"
-        android:title="Delete Account"
-        android:icon="@drawable/ic_baseline_delete_forever_24"
-        app:showAsAction="never" />
+            <item
+                android:id="@+id/action_delete_user"
+                android:icon="@drawable/ic_baseline_delete_forever_24"
+                android:title="Delete Account"
+                app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/action_send_feedback"
-        android:title="Send Feedback"
-        android:icon="@drawable/ic_baseline_feedback_24"
-        app:showAsAction="never" />
-
+            <item
+                android:id="@+id/action_send_feedback"
+                android:icon="@drawable/ic_baseline_feedback_24"
+                android:title="Send Feedback"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
 </menu>
