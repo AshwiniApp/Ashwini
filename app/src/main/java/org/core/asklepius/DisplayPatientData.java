@@ -12,16 +12,20 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.core.asklepius.databinding.ActivityDisplayPatientDataBinding;
+
 import java.util.Map;
 
 public class DisplayPatientData extends AppCompatActivity {
 
     Patient patient;
+    ActivityDisplayPatientDataBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_patient_data);
+        binding = ActivityDisplayPatientDataBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Patient Data");
 
@@ -57,7 +61,7 @@ public class DisplayPatientData extends AppCompatActivity {
      */
     private void setSymptoms() {
         Map<String, Boolean> symptoms = patient.getSymptomList();
-        ChipGroup symptomsChipGroups = findViewById(R.id.chipGroup_symptoms);
+        ChipGroup symptomsChipGroups = binding.chipGroupSymptoms;
         for (String symptom : Values.symptoms) {
             if (symptoms.get(symptom)) {
                 Chip chip = (Chip) getLayoutInflater().inflate(R.layout.symptom_chip_single, symptomsChipGroups, false);
