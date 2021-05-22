@@ -67,7 +67,7 @@ public class DisplayPatientData extends AppCompatActivity {
                 Chip chip = (Chip) getLayoutInflater().inflate(R.layout.symptom_chip_single, symptomsChipGroups, false);
                 symptomsChipGroups.addView(chip);
                 chip.setText(symptom);
-                chip.setEnabled(false);
+                chip.setClickable(false);
             }
         }
     }
@@ -79,6 +79,7 @@ public class DisplayPatientData extends AppCompatActivity {
         textInputLayout = findViewById(resourceID);
         editText = textInputLayout.getEditText();
         editText.setText(setString);
+        editText.setFocusable(false);
     }
 
     @Override

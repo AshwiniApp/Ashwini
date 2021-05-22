@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/patient_s_sex"
-            android:enabled="false"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -28,15 +28,21 @@
             android:id="@+id/textField_display_patient_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:hint="@string/patient_s_age"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <View
+            android:id="@+id/divider12"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
         <TextView
             android:layout_width="match_parent"
@@ -145,13 +151,19 @@
 
         </com.google.android.material.chip.ChipGroup>
 
+        <View
+            android:id="@+id/divider14"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_display_patient_comorbidities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:hint="@string/comorbidity_description"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -161,10 +173,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_display_patient_symptom_severity"
             android:layout_width="match_parent"
-            android:enabled="false"
             android:layout_height="wrap_content"
             android:hint="@string/severity_of_symptoms"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -174,10 +186,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_display_patient_condition"
             android:layout_width="match_parent"
-            android:enabled="false"
             android:layout_height="wrap_content"
             android:hint="@string/condition_of_the_patient"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -187,7 +199,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_display_patient_treatment_plan"
             android:layout_width="match_parent"
-            android:enabled="false"
             android:layout_height="wrap_content"
             android:hint="@string/treatment_plan_followed_by_the_doctor"
             android:padding="8dp">
@@ -202,8 +213,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/period_of_treatment"
-            android:enabled="false"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -214,9 +225,9 @@
             android:id="@+id/textField_display_patient_treatment_administration_method"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:hint="@string/method_of_administration_of_treatment"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -227,9 +238,9 @@
             android:id="@+id/textField_display_patient_frequency_per_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:hint="@string/frequency_of_administration_per_day"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -239,10 +250,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_display_patient_frequency_per_week"
             android:layout_width="match_parent"
-            android:enabled="false"
             android:layout_height="wrap_content"
             android:hint="@string/frequency_of_administration_per_week"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -253,7 +264,6 @@
             android:id="@+id/textField_display_patient_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:hint="@string/result"
             android:padding="8dp">
 
@@ -265,7 +275,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_display_patient_side_effects"
             android:layout_width="match_parent"
-            android:enabled="false"
             android:layout_height="wrap_content"
             android:hint="@string/side_effects"
             android:padding="8dp">
@@ -279,9 +288,9 @@
             android:id="@+id/textField_display_patient_source_of_infection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:hint="@string/source_of_infection"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"
@@ -291,10 +300,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_display_patient_infectivity"
             android:layout_width="match_parent"
-            android:enabled="false"
             android:layout_height="wrap_content"
             android:hint="@string/patient_infectivity"
-            android:padding="8dp">
+            android:padding="8dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <EditText
                 android:layout_width="match_parent"

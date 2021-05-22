@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="options_menu_icon_color">#212121</color>
+    <color name="symptom_chip_color">#80CBC4</color>
 </resources>
