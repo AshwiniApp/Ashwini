@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 new MaterialAlertDialogBuilder(MainActivity.this)
                         .setTitle("Are you sure?")
                         .setMessage("If you delete your account, you'll lose access to all your data!")
+                        .setIcon(R.drawable.ic_baseline_delete_forever_24)
                         .setPositiveButton("Delete", (dialog, which) -> {
                             setContentView(R.layout.loading_screen);
                             getSupportActionBar().hide();
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
     private void setContentToMain() {
         getSupportActionBar().show();
         setContentView(R.layout.activity_main);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        ExtendedFloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), NewPatient.class)));
     }
 
