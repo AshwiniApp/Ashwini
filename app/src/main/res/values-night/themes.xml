@@ -10,11 +10,11 @@
         <item name="colorSecondaryVariant">#60CE80</item>
         <item name="colorOnSecondary">#212121</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#1976D2</item>
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">#202124</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
-        <!-- Works on status bar for some reason -->
+        <!-- Works on action bar for some reason -->
         <item name="colorSurface">#313235</item>
     </style>
 </resources>
