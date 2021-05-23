@@ -338,6 +338,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/treatment_plan_followed_by_the_doctor"
+                android:gravity="right|top|left"
                 android:inputType="textMultiLine"
                 android:minLines="5" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -418,6 +419,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/result"
+                android:gravity="top"
                 android:inputType="textMultiLine"
                 android:minLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -434,6 +436,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/side_effects"
+                android:gravity="left"
                 android:inputType="textMultiLine"
                 android:minLines="3" />
         </com.google.android.material.textfield.TextInputLayout>
