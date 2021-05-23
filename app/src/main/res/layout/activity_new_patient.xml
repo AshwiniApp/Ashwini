@@ -155,18 +155,18 @@
             <!--                android:text="@string/symptom_dry_cough" />-->
 
             <!--            <com.google.android.material.chip.Chip-->
-            <!--                android:id="@+id/chip_aches_and_pains"-->
-            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="@string/symptom_aches_and_pains" />-->
-
-            <!--            <com.google.android.material.chip.Chip-->
             <!--                android:id="@+id/chip_sore_throat"-->
             <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
             <!--                android:layout_width="wrap_content"-->
             <!--                android:layout_height="wrap_content"-->
             <!--                android:text="@string/symptom_sore_throat" />-->
+
+            <!--            <com.google.android.material.chip.Chip-->
+            <!--                android:id="@+id/chip_aches_and_pains"-->
+            <!--                style="@style/Widget.MaterialComponents.Chip.Filter"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="@string/symptom_aches_and_pains" />-->
 
             <!--            <com.google.android.material.chip.Chip-->
             <!--                android:id="@+id/chip_nasal_congestion"-->
