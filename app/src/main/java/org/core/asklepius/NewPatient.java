@@ -68,6 +68,7 @@ public class NewPatient extends AppCompatActivity {
 
 
         inflateSymptomChips();
+        binding.textFieldPatientName.requestFocus();
     }
 
     private void setEditModePresets() {

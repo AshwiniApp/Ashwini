@@ -11,16 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="@dimen/standard"
-        android:paddingEnd="@dimen/standard">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/standard"
-            android:text="@string/means_required"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#C81414" />
+        android:paddingStart="@dimen/large"
+        android:paddingEnd="@dimen/large">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textField_patient_name"
@@ -35,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/patient_s_name"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
