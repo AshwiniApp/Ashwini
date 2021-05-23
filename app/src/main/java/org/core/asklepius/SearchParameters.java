@@ -258,4 +258,13 @@ public class SearchParameters extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Clear the list when the user returns from the search results page. See Issue #14 on GitHub
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        symptoms.clear();
+    }
 }
