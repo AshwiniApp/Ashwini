@@ -3,5 +3,6 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/josefin_sans</item>
         <item>@font/josefin_sans_bold</item>
+        <item>@font/montserrat</item>
     </array>
 </resources>
