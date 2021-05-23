@@ -27,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/patient_s_name"
-                android:inputType="textPersonName"/>
+                android:fontFamily="@font/montserrat"
+                android:inputType="textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -43,6 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/patient_s_age"
+                android:fontFamily="@font/montserrat"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,6 +58,7 @@
             android:id="@+id/textView_patient_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:paddingTop="@dimen/standard"
             android:paddingBottom="@dimen/standard"
             android:text="@string/patient_s_sex"
@@ -78,6 +81,7 @@
                     android:id="@+id/radioButton_sex_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:onClick="onSexSelectRadioButtonClicked"
                     android:text="@string/male" />
 
@@ -85,6 +89,7 @@
                     android:id="@+id/radioButton_sex_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:onClick="onSexSelectRadioButtonClicked"
                     android:text="@string/female" />
 
@@ -92,6 +97,7 @@
                     android:id="@+id/radioButton_sex_other"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:onClick="onSexSelectRadioButtonClicked"
                     android:text="@string/other" />
             </RadioGroup>
@@ -106,6 +112,7 @@
                 android:autofillHints="trans"
                 android:ems="10"
                 android:enabled="false"
+                android:fontFamily="@font/montserrat"
                 android:hint="@string/specify"
                 android:inputType="textShortMessage"
                 android:selectAllOnFocus="true"
@@ -122,6 +129,7 @@
             android:id="@+id/textView_patient_symptoms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:paddingTop="@dimen/standard"
             android:paddingBottom="@dimen/standard"
             android:text="@string/symptoms_shown"
@@ -235,6 +243,7 @@
             android:id="@+id/textView_comorbidity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:paddingTop="@dimen/standard"
             android:paddingBottom="@dimen/standard"
             android:text="@string/comorbidties"
@@ -255,6 +264,7 @@
                     android:id="@+id/radioButton_comorbidity_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:onClick="onComorbiditySelectRadioButtonClicked"
                     android:text="@string/no" />
 
@@ -262,6 +272,7 @@
                     android:id="@+id/radioButton_comorbidity_yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
                     android:onClick="onComorbiditySelectRadioButtonClicked"
                     android:text="@string/yes" />
             </RadioGroup>
@@ -275,6 +286,7 @@
                 android:autofillHints="Heart Disease"
                 android:ems="10"
                 android:enabled="false"
+                android:fontFamily="@font/montserrat"
                 android:hint="@string/comorbidity_description"
                 android:inputType="textShortMessage" />
         </LinearLayout>
@@ -288,6 +300,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:paddingTop="@dimen/standard"
             android:paddingBottom="@dimen/standard"
             android:text="@string/severity_of_symptoms"
@@ -305,6 +318,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat"
             android:paddingTop="@dimen/standard"
             android:paddingBottom="@dimen/standard"
             android:text="@string/condition_of_the_patient"
@@ -338,6 +352,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/treatment_plan_followed_by_the_doctor"
+                android:fontFamily="@font/montserrat"
                 android:gravity="right|top|left"
                 android:inputType="textMultiLine"
                 android:minLines="5" />
@@ -356,6 +371,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/period_of_treatment"
+                android:fontFamily="@font/montserrat"
                 android:inputType="textShortMessage" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -372,6 +388,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/method_of_administration_of_treatment"
+                android:fontFamily="@font/montserrat"
                 android:inputType="textLongMessage" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -388,6 +405,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/frequency_of_administration_per_day"
+                android:fontFamily="@font/montserrat"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -404,6 +422,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/frequency_of_administration_per_week"
+                android:fontFamily="@font/montserrat"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -419,6 +438,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/result"
+                android:fontFamily="@font/montserrat"
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:minLines="3" />
@@ -436,6 +456,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/side_effects"
+                android:fontFamily="@font/montserrat"
                 android:gravity="left"
                 android:inputType="textMultiLine"
                 android:minLines="3" />
@@ -454,6 +475,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/source_of_infection"
+                android:fontFamily="@font/montserrat"
                 android:inputType="textShortMessage" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -470,6 +492,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="@string/patient_infectivity"
+                android:fontFamily="@font/montserrat"
                 android:inputType="textShortMessage" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -479,6 +502,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/montserrat"
             android:onClick="onSubmitButtonClicked"
             android:text="@string/submit"
             android:textStyle="bold" />
