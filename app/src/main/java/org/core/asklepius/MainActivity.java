@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Options Menu at the top right corner, accessible by the three dot icon
+     * @param item selected action
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
