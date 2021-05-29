@@ -1,7 +1,8 @@
 # Asklepius
 A Covid-19 patient treatment data crowd-sourcing platform intended for Doctors, available on Android
 
-![Asklepius Image](https://github.com/sanskar10100/resources/blob/main/Asklepius.jpg "Asklepius on Android")
+![Asklepius](https://user-images.githubusercontent.com/22092047/120060167-c2636d00-c073-11eb-9a76-966dbfb1be87.png)
+
 
 ## Primary Features
 - Upload Comprehensive Patient Treatment Data for Perusal by other treatment providers
