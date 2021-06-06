@@ -1,8 +1,7 @@
 # Ashwini
 A Covid-19 patient treatment data crowd-sourcing platform intended for Doctors, available on Android
 
-![Ashwini](https://user-images.githubusercontent.com/22092047/120060167-c2636d00-c073-11eb-9a76-966dbfb1be87.png)
-
+![Ashwini](https://user-images.githubusercontent.com/22092047/120934120-abc7b080-c71a-11eb-93a8-1db99af4246f.png)
 
 ## Primary Features
 - Upload Comprehensive Patient Treatment Data for Perusal by other treatment providers
