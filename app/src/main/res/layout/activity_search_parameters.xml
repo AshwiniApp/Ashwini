@@ -17,11 +17,14 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="8dp"
-            android:paddingTop="8dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"
+            android:padding="8dp"
             android:text="@string/search_patient_data"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textStyle="bold" />
+            android:textSize="25sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView4"
@@ -34,7 +37,7 @@
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="3dp"
             android:background="?android:attr/listDivider" />
 
         <com.google.android.material.textfield.TextInputLayout

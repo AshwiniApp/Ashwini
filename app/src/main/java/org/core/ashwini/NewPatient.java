@@ -189,13 +189,14 @@ public class NewPatient extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.radioButton_sex_male:
                 patient.setSex(getString(R.string.male));
-                otherSexInput.setEnabled(false);
+                otherSexInput.setVisibility(View.GONE);
                 break;
             case R.id.radioButton_sex_female:
                 patient.setSex(getString(R.string.female));
-                otherSexInput.setEnabled(false);
+                otherSexInput.setVisibility(View.GONE);
                 break;
             case R.id.radioButton_sex_other:
+                otherSexInput.setVisibility(View.VISIBLE);
                 otherSexInput.setEnabled(true);
                 if (!editMode) {
                     otherSexInput.requestFocus();
