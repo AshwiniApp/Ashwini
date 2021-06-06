@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         .setTitle("Provide feedback using:")
                         .setItems(new String[]{"GitHub", "Email"}, (dialog, which) -> {
                             if (which == 0) {
-                                Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/sanskar10100/Asklepius/issues/new"));
+                                Intent githubIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/AshwiniApp/Ashwini/issues/new"));
                                 if (githubIntent.resolveActivity(getPackageManager()) != null) {
                                     startActivity(githubIntent);
                                 }
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent feedbackMailIntent = new Intent(Intent.ACTION_SENDTO);
                                 feedbackMailIntent.setData(Uri.parse("mailto:"));
                                 feedbackMailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"sanskar10100@gmail.com"});
-                                feedbackMailIntent.putExtra(Intent.EXTRA_SUBJECT, "Asklepius Feedback");
+                                feedbackMailIntent.putExtra(Intent.EXTRA_SUBJECT, "Ashwini Feedback");
                                 if (feedbackMailIntent.resolveActivity(getPackageManager()) != null) {
                                     startActivity(feedbackMailIntent);
                                 }

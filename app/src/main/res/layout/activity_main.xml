@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="128dp"
         android:fontFamily="@font/montserrat_bold"
-        android:text="@string/welcome_to_asklepius"
+        android:text="@string/hello"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textStyle="bold"

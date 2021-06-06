@@ -1,7 +1,7 @@
-# Asklepius
+# Ashwini
 A Covid-19 patient treatment data crowd-sourcing platform intended for Doctors, available on Android
 
-![Asklepius](https://user-images.githubusercontent.com/22092047/120060167-c2636d00-c073-11eb-9a76-966dbfb1be87.png)
+![Ashwini](https://user-images.githubusercontent.com/22092047/120060167-c2636d00-c073-11eb-9a76-966dbfb1be87.png)
 
 
 ## Primary Features
@@ -19,4 +19,4 @@ A Covid-19 patient treatment data crowd-sourcing platform intended for Doctors, 
 - Support for a seamless dark theme to reduce eye strain and battery usage
 
 ### Feedback
-If you spot any bugs or want a feature, please [raise an issue](https://github.com/sanskar10100/Asklepius/issues/new), or mail the developer at sanskar10100@gmail.com
+If you spot any bugs or want a feature, please [raise an issue](https://github.com/AshwiniApp/Ashwini/issues/new), or mail the developer at sanskar10100@gmail.com

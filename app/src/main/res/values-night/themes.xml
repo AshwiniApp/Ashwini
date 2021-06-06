@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Asklepius" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.Ashwini" parent="Theme.MaterialComponents.DayNight">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#1976D2</item>
         <item name="colorPrimaryVariant">#2196F3</item>
