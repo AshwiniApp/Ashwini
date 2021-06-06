@@ -1,4 +1,4 @@
-package org.core.asklepius;
+package org.core.ashwini;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,7 +12,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.core.asklepius.databinding.ActivityDisplayPatientDataBinding;
+import org.core.ashwini.databinding.ActivityDisplayPatientDataBinding;
 
 import java.util.Map;
 

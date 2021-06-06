@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.core.asklepius">
+    package="org.core.ashwini">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -28,14 +28,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Asklepius">
-        <activity android:name=".UserValidationUpload" />
-        <activity android:name=".DisplaySearchResults" />
-        <activity android:name=".SearchParameters" />
-        <activity android:name=".DisplayPatientData" />
-        <activity android:name=".ViewUploadedData"/>
-        <activity android:name=".NewPatient" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name="org.core.ashwini.UserValidationUpload" />
+        <activity android:name="org.core.ashwini.DisplaySearchResults" />
+        <activity android:name="org.core.ashwini.SearchParameters" />
+        <activity android:name="org.core.ashwini.DisplayPatientData" />
+        <activity android:name="org.core.ashwini.ViewUploadedData"/>
+        <activity android:name="org.core.ashwini.NewPatient" />
+        <activity android:name="org.core.ashwini.LoginActivity" />
+        <activity android:name="org.core.ashwini.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

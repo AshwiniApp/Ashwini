@@ -1,4 +1,4 @@
-package org.core.asklepius;
+package org.core.ashwini;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.annotations.NotNull;

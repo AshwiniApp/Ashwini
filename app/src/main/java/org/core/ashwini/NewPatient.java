@@ -1,4 +1,4 @@
-package org.core.asklepius;
+package org.core.ashwini;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,7 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
-import org.core.asklepius.databinding.ActivityNewPatientBinding;
+import org.core.ashwini.databinding.ActivityNewPatientBinding;
 
 public class NewPatient extends AppCompatActivity {
 

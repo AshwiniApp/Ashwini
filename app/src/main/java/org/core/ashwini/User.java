@@ -1,4 +1,4 @@
-package org.core.asklepius;
+package org.core.ashwini;
 
 import java.util.Objects;
 

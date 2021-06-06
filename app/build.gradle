@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "org.core.asklepius"
+        applicationId "org.core.ashwini"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 28
