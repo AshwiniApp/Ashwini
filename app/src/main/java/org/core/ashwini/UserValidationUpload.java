@@ -204,9 +204,14 @@ public class UserValidationUpload extends AppCompatActivity {
             return;
         }
 
+        String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        if (username == null) {
+            username = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        }
+
         if (user == null) {
             User user = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
-                    FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                    username);
             DatabaseReference userDB = Values.userDB;
             userDB.push().setValue(user).addOnSuccessListener(aVoid -> {
                 Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
@@ -214,11 +219,12 @@ public class UserValidationUpload extends AppCompatActivity {
                 finish();
             });
         } else {
+            String finalUsername = username;
             Values.userDB.get().addOnCompleteListener(task -> {
                 for (DataSnapshot childrenSnapshot : task.getResult().getChildren()) {
                     if (childrenSnapshot.getValue(User.class).equals(user)) {
                         User newUser = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
-                                FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                finalUsername);
                         String key = childrenSnapshot.getKey();
                         Values.userDB.child(key).setValue(newUser).addOnSuccessListener(aVoid -> {
                             Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
