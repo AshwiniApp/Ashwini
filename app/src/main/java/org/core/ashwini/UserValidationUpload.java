@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -109,6 +113,29 @@ public class UserValidationUpload extends AppCompatActivity {
         }
 
         return image;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_validation_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sign_out: {
+                // Since the user isn't in the rtdb, we're actually deleting the user from the auth table in firebase
+                // so that when the user reopens the app a smoother flow can be obtained
+                AuthUI.getInstance().delete(this)
+                        .addOnCompleteListener(task -> {
+                            Toast.makeText(this, "You've been successfully signed out!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        });
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
