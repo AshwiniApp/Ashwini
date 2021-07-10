@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -111,6 +115,29 @@ public class UserValidationUpload extends AppCompatActivity {
         return image;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_validation_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sign_out: {
+                // Since the user isn't in the rtdb, we're actually deleting the user from the auth table in firebase
+                // so that when the user reopens the app a smoother flow can be obtained
+                AuthUI.getInstance().delete(this)
+                        .addOnCompleteListener(task -> {
+                            Toast.makeText(this, "You've been successfully signed out!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        });
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * Creates a reference to a Firebase Storage location based on the current user ID to prevent
      * duplicate uploads of the same ID in the future thus saving space. After a reference is created,
@@ -204,9 +231,14 @@ public class UserValidationUpload extends AppCompatActivity {
             return;
         }
 
+        String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        if (username == null) {
+            username = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        }
+
         if (user == null) {
             User user = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
-                    FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                    username);
             DatabaseReference userDB = Values.userDB;
             userDB.push().setValue(user).addOnSuccessListener(aVoid -> {
                 Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();
@@ -214,11 +246,12 @@ public class UserValidationUpload extends AppCompatActivity {
                 finish();
             });
         } else {
+            String finalUsername = username;
             Values.userDB.get().addOnCompleteListener(task -> {
                 for (DataSnapshot childrenSnapshot : task.getResult().getChildren()) {
                     if (childrenSnapshot.getValue(User.class).equals(user)) {
                         User newUser = new User(imageURL, FirebaseAuth.getInstance().getUid(), icmrId, Values.userVerificationState.Pending.toString(), "",
-                                FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                finalUsername);
                         String key = childrenSnapshot.getKey();
                         Values.userDB.child(key).setValue(newUser).addOnSuccessListener(aVoid -> {
                             Toast.makeText(UserValidationUpload.this, "Validation Data Successfully Uploaded!", Toast.LENGTH_SHORT).show();

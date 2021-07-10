@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -290,6 +291,8 @@ public class NewPatient extends AppCompatActivity {
         if (!hasError) {
             progressBar.setVisibility(View.VISIBLE);
             uploadData();
+        } else {
+            Snackbar.make(binding.buttonSubmitNewPatientData, "There are one or more errors in the form!", Snackbar.LENGTH_SHORT).show();
         }
     }
 
