@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
-                        .setLogo(R.drawable.logo)
+                        .setLogo(R.drawable.ashwini_logo)
                         .build(),
                 RC_SIGN_IN);
     }

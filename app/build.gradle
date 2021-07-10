@@ -4,6 +4,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        upload {
+            storeFile file('/home/sanskar/source/AndroidStudioProjects/keystores/upload-key.jks')
+            storePassword 'Dev://@+10100'
+            keyAlias 'upload'
+            keyPassword 'Dev://@+10100'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -13,8 +21,6 @@ android {
         targetSdkVersion 30
         versionCode 28
         versionName "0.6.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -25,6 +31,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            signingConfig signingConfigs.upload
+        }
+        debug {
+            versionNameSuffix '-d'
         }
     }
     compileOptions {
@@ -39,11 +50,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.firebase:firebase-database:20.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation platform('com.google.firebase:firebase-bom:26.4.0')
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-analytics:19.0.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
 }
